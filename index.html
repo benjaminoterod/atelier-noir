@@ -598,6 +598,34 @@ body{letter-spacing:-.005em}
   .h-word span{writing-mode:vertical-rl;font-size:27vw;line-height:.8;margin:0}
 }
 
+/* portada minimalista */
+.h-title{position:absolute;inset:0;z-index:4;display:grid;place-items:center;pointer-events:none;will-change:transform,opacity}
+.h-title span{font:500 clamp(13px,1.2vw,18px)/1 var(--sans);letter-spacing:.62em;text-transform:uppercase;color:var(--cream);padding-left:.62em;text-shadow:0 1px 18px rgba(0,0,0,.35)}
+@media (prefers-reduced-motion:no-preference){
+  .h-title span{display:inline-block;animation:titin 2s var(--ease) .3s both}
+  @keyframes titin{from{opacity:0;filter:blur(14px);letter-spacing:1.1em}to{opacity:1;filter:none;letter-spacing:.62em}}
+}
+
+/* seccion grafiti */
+.gx{position:relative;height:260vh;padding:0;background:var(--ink);color:var(--cream)}
+.gx-in{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.gx-media{position:absolute;inset:0;clip-path:inset(24% 31% 24% 31%);will-change:clip-path}
+.gx-media img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:scale(var(--s,1.28));filter:blur(var(--b,10px)) brightness(var(--br,.55));will-change:transform,filter}
+.gx-h{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;gap:.18em;font:700 clamp(56px,11vw,200px)/.8 var(--disp);letter-spacing:-.06em;text-transform:uppercase;color:var(--cream);mix-blend-mode:difference;pointer-events:none}
+.gx-h span{display:block;will-change:transform}
+.gx-bot{position:absolute;z-index:3;left:var(--gut);right:var(--gut);bottom:clamp(22px,5vh,48px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;opacity:0}
+.gx-bot .pv-live{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.gx-cta{display:flex;align-items:center;gap:20px}
+.gx-price{font:600 clamp(24px,2.4vw,34px)/1 var(--disp);letter-spacing:-.04em}
+@media (prefers-reduced-motion:reduce){.gx{height:auto}.gx-in{position:relative}.gx-media{clip-path:none}.gx-bot{opacity:1}}
+@media (max-width:700px){
+  .gx{height:220vh}
+  .gx-media img{object-position:50% 35%}
+  .gx-h{font-size:clamp(56px,22vw,120px);flex-direction:column;gap:0}
+  .gx-bot{flex-direction:column;align-items:flex-start;gap:14px}
+  .gx-cta{width:100%;justify-content:space-between}
+}
+
 </style>
 </head>
 <body>
@@ -725,24 +753,20 @@ function viewHome(){
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
     <picture class="h-bg"><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
-    <div class="h-word" aria-hidden="true"><span>ATELIER</span></div>
-    <picture class="h-fg"><source media="(max-width:640px)" srcset="assets/portada-m-fg.webp"><img src="assets/portada-fg.webp" width="3840" height="2166" alt="" aria-hidden="true" fetchpriority="high"></picture>
+    <div class="h-title"><span>Atelier Noir</span></div>
     <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
   </section>
 
-  <section class="pv" aria-label="Preventa Drop SANS">
-    <div class="pv-in">
-      <div class="pv-top"><span class="pv-live"><i aria-hidden="true"></i>${CONFIG.preventaAbierta?'Preventa abierta':'Preventa muy pronto'}</span><span>Drop SANS · 001</span></div>
-      <h2 class="pv-h"><span class="pv-l l1">Esto</span><span class="pv-l l2">recién</span><span class="pv-l l3">empieza</span></h2>
-      <div class="pv-cards" aria-hidden="true">${ORDER.map((c,i)=>`<span class="pv-c c${i}"><img src="${M[c].mockups[0].src}" alt="" decoding="async"><b>${COLORS[c].name}</b></span>`).join('')}</div>
-      <div class="pv-bot">
-        <p>El primer drop de ATELIER NOIR. Polerón SANS de 550 g/m², 100% algodón y capucha de doble capa, en cuatro colores y tallas M, L y XL.</p>
-        <div class="pv-cta"><span class="pv-price">${money(CONFIG.precio)}<small>${CONFIG.preventaAbierta?'Preventa':'Prochainement'}</small></span><a class="btn pv-btn" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a></div>
+  <section class="gx" aria-label="Drop SANS">
+    <div class="gx-in">
+      <div class="gx-media"><img src="assets/grafiti.webp" width="2212" height="1236" alt="Modelo con el polerón SANS negro y la capucha puesta frente a un muro con grafitis" decoding="async"></div>
+      <h2 class="gx-h"><span class="gx-a">Drop</span><span class="gx-b">SANS</span></h2>
+      <div class="gx-bot">
+        <span class="pv-live"><i aria-hidden="true"></i>${CONFIG.preventaAbierta?'Preventa abierta':'Preventa muy pronto'}</span>
+        <div class="gx-cta"><span class="gx-price">${money(CONFIG.precio)}</span><a class="btn pv-btn" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a></div>
       </div>
-      <div class="pv-tick" aria-hidden="true"><div class="pv-tt">${Array(8).fill('<span>Précommande</span><span>Drop SANS</span><span>Esto recién empieza</span>').join('')}</div></div>
     </div>
   </section>
-
 
   <section id="coleccion" class="shop" aria-label="Productos">
     <div class="shop-h rv"><span>Shop · Drop SANS</span><a href="#/#polerones" data-go="polerones">Ver todo</a></div>
@@ -814,7 +838,7 @@ function viewHome(){
     <p class="rv">${CONFIG.preventaAbierta?'La preventa del Drop SANS está abierta.':'La preventa del Drop SANS abrirá aquí mismo. Escríbenos por Instagram y te avisamos primero.'}</p>
     <div class="cta-row rv">${CONFIG.preventaAbierta?'<a class="btn solid" href="#/#polerones" data-go="polerones">Reservar el mío</a>':`<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a>`}</div>
   </section>`;
-  startParallax(); startReveal(); startCollage(); startPV(); startTiles();
+  startParallax(); startReveal(); startCollage(); startGX(); startTiles();
 }
 
 /* ===== Ayuda: tallas, envios, detalles, contacto ===== */
@@ -1078,6 +1102,30 @@ function fadeImgs(){
     i.classList.add('fade'); const ok=()=>i.classList.add('ok'); i.addEventListener('load',ok,{once:true}); i.addEventListener('error',ok,{once:true}); });
 }
 
+/* ===== foto del grafiti: se abre y enfoca al bajar ===== */
+function startGX(){
+  const sec=app.querySelector('.gx'); if(!sec) return;
+  const media=sec.querySelector('.gx-media'), A=sec.querySelector('.gx-a'), Bw=sec.querySelector('.gx-b'), bot=sec.querySelector('.gx-bot');
+  const seg=(p,a,b)=>Math.max(0,Math.min(1,(p-a)/(b-a))), eo=t=>1-Math.pow(1-t,3), io=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  let t=false;
+  const run=()=>{ t=false;
+    const r=sec.getBoundingClientRect(), vh=innerHeight, mob=innerWidth<700;
+    const p=reduce?1:Math.max(0,Math.min(1,(vh-r.top)/r.height));
+    const k=io(seg(p,.3,.74));
+    const iy=(1-k)*(mob?26:24), ix=(1-k)*(mob?14:31);
+    media.style.clipPath=`inset(${iy.toFixed(2)}% ${ix.toFixed(2)}% ${iy.toFixed(2)}% ${ix.toFixed(2)}%)`;
+    media.style.setProperty('--s',(1.28-.28*k).toFixed(4));
+    media.style.setProperty('--b',((1-k)*10).toFixed(2)+'px');
+    media.style.setProperty('--br',(.55+.35*k).toFixed(3));
+    const w=eo(seg(p,.42,.82)), d=mob?13:18.5;
+    if(mob){ A.style.transform=`translate3d(0,${(-w*15).toFixed(2)}vh,0)`; Bw.style.transform=`translate3d(0,${(w*15).toFixed(2)}vh,0)`; } else { A.style.transform=`translate3d(${(-w*d).toFixed(2)}vw,0,0)`; Bw.style.transform=`translate3d(${(w*d).toFixed(2)}vw,0,0)`; }
+    const kb=eo(seg(p,.74,.9)); bot.style.opacity=kb.toFixed(3); bot.style.transform=`translate3d(0,${((1-kb)*24).toFixed(1)}px,0)`;
+  };
+  const on=()=>{ if(!t){ t=true; requestAnimationFrame(run); } };
+  addEventListener('scroll',on,{passive:true}); addEventListener('resize',on); run();
+  cleanup.push(()=>{ removeEventListener('scroll',on); removeEventListener('resize',on); });
+}
+
 /* ===== seccion "esto recien empieza" (animada con el scroll) ===== */
 function startPV(){
   const sec=app.querySelector('.pv'); if(!sec) return;
@@ -1130,8 +1178,8 @@ function startReveal(){
 }
 function startParallax(){
   if(reduce) return;
-  const bg=app.querySelector('.h-bg img'), fg=app.querySelector('.h-fg img'), wd=app.querySelector('.h-word'); if(!bg) return; let t=false;
-  const run=()=>{t=false;const y=Math.min(scrollY,innerHeight);bg.style.transform=`translate3d(0,${Math.round(y*.32)}px,0)`; wd.style.transform=`translate3d(0,${Math.round(y*.2)}px,0)`; fg.style.transform=`translate3d(0,${Math.round(y*.1)}px,0)`;};
+  const bg=app.querySelector('.h-bg img'), ht=app.querySelector('.h-title'); if(!bg) return; let t=false;
+  const run=()=>{t=false;const y=Math.min(scrollY,innerHeight);bg.style.transform=`translate3d(0,${Math.round(y*.3)}px,0)`; ht.style.transform=`translate3d(0,${Math.round(y*.12)}px,0)`; ht.style.opacity=Math.max(0,1-y/(innerHeight*.55)).toFixed(3);};
   const on=()=>{if(!t){t=true;requestAnimationFrame(run);}};
   window.addEventListener('scroll',on,{passive:true}); cleanup.push(()=>window.removeEventListener('scroll',on));
 }
