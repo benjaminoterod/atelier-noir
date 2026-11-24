@@ -9,7 +9,7 @@
 <meta property="og:title" content="ATELIER NOIR™ — Drop 01">
 <meta property="og:description" content="Polerón AN-H03 Paneles. Pesado, relajado, sans bruit.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/fotos/negro-2.webp">
+<meta property="og:image" content="https://benjaminoterod.github.io/atelier-noir/assets/portada.webp">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,30 +32,83 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- header ---------- */
-.top{position:fixed;inset:0 0 auto 0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px var(--gut);background:linear-gradient(var(--cream) 55%,rgba(236,230,218,0))}
-.top nav{display:flex;gap:22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-.top nav.r{justify-content:flex-end}
-.top nav a{position:relative;padding:6px 0}
-.top nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
-.top nav a:hover::after{transform:scaleX(1)}
-.logo img{height:30px;width:auto}
-.logo{display:block;padding:2px 10px}
+.top{position:fixed;inset:0 0 auto 0;z-index:60;height:64px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 calc(var(--gut) - 10px);color:var(--ink);background:var(--cream);border-bottom:1px solid var(--line);transition:background .35s var(--ease),color .35s var(--ease),border-color .35s}
+.top.over{background:linear-gradient(rgba(8,8,12,.5),rgba(8,8,12,0));border-color:transparent;color:var(--cream)}
+.top .side{display:flex;align-items:center;gap:2px}
+.top .side.r{justify-content:flex-end}
+.ib{position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;transition:background .2s}
+.ib svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ib:hover{background:rgba(127,127,127,.18)}
+.badge{position:absolute;top:4px;right:2px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--ink);color:var(--cream);font-size:10px;line-height:16px;text-align:center}
+.top.over .badge{background:var(--cream);color:var(--ink)}
+.badge[hidden]{display:none}
+.logo{position:relative;display:block;width:42px;height:34px}
+.logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .35s}
+.logo .lc{opacity:0}
+.top.over .logo .lc{opacity:1}
+.top.over .logo .ld{opacity:0}
+
+/* ---------- paneles (menú, búsqueda, carrito) ---------- */
+.scrim{position:fixed;inset:0;z-index:70;background:rgba(10,10,10,.5);opacity:0;pointer-events:none;transition:opacity .35s}
+.scrim.on{opacity:1;pointer-events:auto}
+.panel{position:fixed;top:0;bottom:0;z-index:80;width:min(460px,100vw);background:var(--cream);color:var(--ink);display:flex;flex-direction:column;visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s}
+.panel.l{left:0;transform:translateX(-102%)}
+.panel.r{right:0;transform:translateX(102%)}
+.panel.on{transform:none;visibility:visible;transition:transform .45s var(--ease),visibility 0s}
+.panel-h{display:flex;align-items:center;justify-content:space-between;height:64px;flex:none;padding:0 calc(var(--gut) - 10px) 0 var(--gut);border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.panel-b{flex:1;overflow:auto;padding:var(--gut)}
+.menu a{display:block;font-family:var(--serif);font-size:clamp(34px,5vw,46px);line-height:1.15;padding:5px 0}
+.menu a:hover{font-style:italic}
+.menu .sub{display:grid;margin:2px 0 14px 2px}
+.menu .sub a{font-family:var(--sans);font-size:15px;padding:8px 0;display:flex;align-items:center;gap:10px;color:#3a372f}
+.menu .sub a:hover{font-style:normal;color:var(--ink)}
+.menu .sub i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.3)}
+.menu .fine{margin-top:26px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:4px}
+.menu .fine a{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:6px 0}
+.menu .fine a:hover{font-style:normal;color:var(--ink)}
+.search{position:fixed;left:0;right:0;top:0;z-index:80;max-height:92vh;overflow:auto;background:var(--cream);color:var(--ink);visibility:hidden;transform:translateY(-102%);transition:transform .45s var(--ease),visibility 0s .45s}
+.search.on{transform:none;visibility:visible;transition:transform .45s var(--ease),visibility 0s}
+.search form{display:flex;align-items:center;gap:8px;height:64px;padding:0 calc(var(--gut) - 10px) 0 var(--gut);border-bottom:1px solid var(--line)}
+.search input{flex:1;min-width:0;font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);background:none;border:0;outline:0;color:var(--ink)}
+.search input::placeholder{color:#9a9488}
+.res{padding:18px var(--gut) 30px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.res a{display:flex;gap:12px;align-items:center;padding:8px;border:1px solid var(--line);transition:border-color .2s}
+.res a:hover,.res a:focus-visible{border-color:var(--ink)}
+.res img{width:54px;height:72px;object-fit:cover;background:var(--cream-2)}
+.res b{font-weight:500;display:block}
+.res small{color:var(--mute)}
+.res .none{grid-column:1/-1;color:var(--mute)}
+.res .lbl{grid-column:1/-1;margin:0}
+.cart-empty{text-align:center;padding:48px 8px;color:#3a372f}
+.cart-empty h3{font-family:var(--serif);font-weight:400;font-size:34px;margin-bottom:8px}
+.ci{display:grid;grid-template-columns:72px 1fr auto;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.ci img{width:72px;height:96px;object-fit:cover;background:var(--cream-2)}
+.ci b{font-weight:500;display:block}
+.ci small{display:block;color:var(--mute)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);margin-top:8px}
+.qty button{width:30px;height:30px}
+.qty span{min-width:26px;text-align:center;font-size:13px}
+.ci .rm{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-decoration:underline;text-underline-offset:3px}
+.cart-f{flex:none;border-top:1px solid var(--line);padding:16px var(--gut) calc(18px + env(safe-area-inset-bottom));display:grid;gap:10px}
+.cart-f .tot{display:flex;justify-content:space-between;font-size:16px}
+.cart-f .btn{justify-content:center;width:100%}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:100svh;padding:96px 0 40px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
-.stage{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(10px,1.6vw,26px);height:min(66vh,640px);padding:0 var(--gut)}
-.stage figure{flex:none;overflow:hidden;background:var(--cream-2);will-change:transform}
-.stage img{width:100%;height:100%;object-fit:cover}
-.s1{height:36%;aspect-ratio:2/3}
-.s2{height:62%;aspect-ratio:2/3;align-self:flex-start;margin-top:2%}
-.s3{height:100%;aspect-ratio:2/3}
-.s4{height:62%;aspect-ratio:2/3;align-self:flex-end;margin-bottom:2%}
-.s5{height:36%;aspect-ratio:2/3;align-self:flex-start}
-.hero-copy{text-align:center;margin-top:clamp(20px,4vh,44px);padding:0 var(--gut)}
+.hero{position:relative;height:100vh;height:100svh;min-height:540px;overflow:hidden;color:var(--cream);background:#0b0b10}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 35%;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(5,5,10,.3),rgba(5,5,10,0) 26%,rgba(5,5,10,0) 42%,rgba(5,5,10,.78));pointer-events:none}
+.hero-copy{position:absolute;z-index:2;left:var(--gut);right:var(--gut);bottom:clamp(26px,6vh,64px);max-width:760px}
 .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
-.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,9vw,128px);line-height:.92;letter-spacing:-.01em;margin:10px 0 12px}
+.hero .eyebrow{color:rgba(236,230,218,.82)}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(50px,9vw,132px);line-height:.92;letter-spacing:-.01em;margin:10px 0 14px}
 .hero h1 em{font-style:italic}
-.lead{max-width:46ch;margin:0 auto;color:#3a372f}
+.lead{max-width:44ch;color:rgba(236,230,218,.92)}
+.hero .cta-row{justify-content:flex-start}
+.hero .btn{border-color:var(--cream)}
+.hero .btn.solid{background:var(--cream);color:var(--ink)}
+.hero .btn.solid:hover{background:transparent;color:var(--cream)}
+.hero .btn.ghost:hover{background:var(--cream);color:var(--ink)}
+section{scroll-margin-top:64px}
 .cta-row{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);transition:background .25s,color .25s,transform .2s}
 .btn.solid{background:var(--ink);color:var(--cream)}
@@ -65,9 +118,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* intro */
 @media (prefers-reduced-motion:no-preference){
-  .stage figure{opacity:0;animation:rise .9s var(--ease) forwards}
-  .s3{animation-delay:.05s}.s2,.s4{animation-delay:.18s}.s1,.s5{animation-delay:.3s}
-  .hero-copy{opacity:0;animation:rise .9s var(--ease) .45s forwards}
+  .hero>img{animation:zoom 2.2s var(--ease) both}
+  @keyframes zoom{from{opacity:.0;scale:1.08}to{opacity:1;scale:1}}
+  .hero-copy{opacity:0;animation:rise .9s var(--ease) .5s forwards}
   @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
   .rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
   .rv.in{opacity:1;transform:none}
@@ -156,16 +209,9 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
   .grid4{grid-template-columns:repeat(2,1fr)}
   .facts{grid-template-columns:repeat(2,1fr)}
   .info{grid-template-columns:1fr}
-  .top nav a.hide-m{display:none}
 }
 @media (max-width:640px){
-  .top{grid-template-columns:1fr auto 1fr;padding:10px var(--gut)}
-  .top nav{gap:14px;font-size:11px}
-  .logo img{height:26px}
-  .hero{padding-top:78px}
-  .stage{height:min(58vh,520px);justify-content:flex-start;padding:0;gap:8px;margin-left:-34vw;margin-right:-34vw;justify-content:center}
-  .s1,.s5{display:none}
-  .s2,.s4{height:56%}
+  .hero>img{object-position:58% 30%}
   .strip figure{height:62vh}
   .facts{grid-template-columns:1fr}
   .sec-h span{display:none}
@@ -174,17 +220,38 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
 </head>
 <body>
 
-<header class="top">
-  <nav aria-label="Principal">
-    <a href="#/">Drop 01</a>
-    <a href="#/#detalles" class="hide-m" data-go="detalles">Detalles</a>
-  </nav>
-  <a class="logo" href="#/" aria-label="ATELIER NOIR — inicio"><img src="assets/logo.png" alt="ATELIER NOIR" width="36" height="30"></a>
-  <nav class="r" aria-label="Secundario">
-    <a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener" class="hide-m">Instagram</a>
-    <a href="#/#preventa" data-go="preventa">Précommande</a>
-  </nav>
+<header class="top over" id="top">
+  <div class="side">
+    <button class="ib" id="btnMenu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></svg></button>
+  </div>
+  <a class="logo" href="#/" aria-label="ATELIER NOIR — inicio"><img class="ld" src="assets/logo.png" alt="ATELIER NOIR" width="42" height="34"><img class="lc" src="assets/logo-crema.png" alt="" aria-hidden="true" width="42" height="34"></a>
+  <div class="side r">
+    <button class="ib" id="btnSearch" aria-label="Buscar" aria-expanded="false" aria-controls="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></button>
+    <button class="ib" id="btnCart" aria-label="Carrito" aria-expanded="false" aria-controls="cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4.5h2.3l2.1 10.7h10.2l2-7.9H6.2"/><circle cx="9.6" cy="19" r="1.3"/><circle cx="17" cy="19" r="1.3"/></svg><span class="badge" id="badge" hidden>0</span></button>
+  </div>
 </header>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="panel l" id="menu" aria-label="Menú">
+  <div class="panel-h"><span>Menú</span><button class="ib" data-close aria-label="Cerrar menú"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
+  <nav class="panel-b menu" id="menuNav"></nav>
+</aside>
+
+<div class="search" id="search" role="dialog" aria-label="Buscar">
+  <form id="searchForm" role="search" autocomplete="off">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;flex:none"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+    <input id="q" type="search" placeholder="Buscar" aria-label="Buscar productos" enterkeyhint="search">
+    <button type="button" class="ib" data-close aria-label="Cerrar búsqueda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </form>
+  <div class="res" id="res"></div>
+</div>
+
+<aside class="panel r" id="cart" aria-label="Carrito">
+  <div class="panel-h"><span>Carrito</span><button class="ib" data-close aria-label="Cerrar carrito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
+  <div class="panel-b" id="cartBody"></div>
+  <div class="cart-f" id="cartFoot" hidden></div>
+</aside>
 
 <main id="app" tabindex="-1"></main>
 
@@ -214,6 +281,7 @@ const M = window.MANIFEST;
 const app = document.getElementById('app');
 const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 let cleanup = [];
+let currentColor = 'negro';
 
 const img = (o, alt, extra='') => `<img src="${o.src}" width="${o.w}" height="${o.h}" alt="${alt}" ${extra}>`;
 const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
@@ -221,19 +289,9 @@ const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
 /* ===== Portada ===== */
 function viewHome(){
   document.title = 'ATELIER NOIR™ — Drop 01';
-  const p = (c,i)=>M[c].photos[i];
-  const hero = [
-    ['s1', p('gris',0),   'Modelos con polerón gris', .10],
-    ['s2', p('marino',0), 'Modelo con polerón azul marino', .05],
-    ['s3', p('negro',1),  'Modelo con polerón negro AN-H03', 0],
-    ['s4', p('cafe',0),   'Modelo con polerón café', .07],
-    ['s5', p('negro',4),  'Polerón negro, espalda', .12]
-  ];
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
-    <div class="stage">
-      ${hero.map(h=>`<figure class="${h[0]}" data-speed="${h[3]}">${img(h[1],h[2], h[0]==='s3'?'fetchpriority="high"':'')}</figure>`).join('')}
-    </div>
+    <img src="assets/portada.webp" width="1670" height="942" alt="Modelo con la capucha del polerón AN-H03 puesta, sobre un cielo al atardecer" fetchpriority="high">
     <div class="hero-copy">
       <div class="eyebrow">Drop 01 · AN-H03</div>
       <h1>Paneles<br><em>sans bruit</em></h1>
@@ -283,6 +341,7 @@ function viewHome(){
 function viewProduct(c){
   const col = COLORS[c], d = M[c];
   if(!col){ location.hash = '#/'; return; }
+  currentColor = c;
   document.title = `AN-H03 Paneles ${col.name} — ATELIER NOIR™`;
   const items = [
     ...d.photos.map((o,i)=>({o,cls:'',alt:`AN-H03 Paneles ${col.name}, foto ${i+1}`,cap:''})),
@@ -324,7 +383,7 @@ function viewProduct(c){
 
         <div class="buy">
           ${CONFIG.preventaAbierta
-            ? `<a class="btn solid" id="buy" href="${igLink()}" target="_blank" rel="noopener">Précommande · Preventa</a><span class="note">Se abre un mensaje en Instagram. Indica color y talla.</span>`
+            ? `<button class="btn solid" id="buy" type="button">Précommande · Añadir al carrito</button><span class="note">Pides por Instagram desde el carrito y el pago se coordina ahí.</span>`
             : `<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame cuando abra</a><span class="note">Prochainement. Escríbenos por Instagram y te avisamos primero.</span>`}
         </div>
       </div>
@@ -355,8 +414,11 @@ function viewProduct(c){
 
 function initSizes(){
   const btns=[...app.querySelectorAll('.sizes button')], rows=[...app.querySelectorAll('#tbl tbody tr')];
-  const set=s=>{btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===s));rows.forEach(r=>r.classList.toggle('on',r.dataset.s===s));};
+  let sel='L';
+  const set=s=>{sel=s;btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===s));rows.forEach(r=>r.classList.toggle('on',r.dataset.s===s));};
   btns.forEach(b=>b.addEventListener('click',()=>set(b.dataset.s))); set('L');
+  const buy=document.getElementById('buy');
+  if(buy) buy.addEventListener('click',()=>{addToCart(currentColor,sel);openPanel('cart');});
 }
 
 function initStrip(total){
@@ -394,11 +456,115 @@ function startReveal(){
 }
 function startParallax(){
   if(reduce) return;
-  const fs=[...app.querySelectorAll('.stage figure')]; let t=false;
-  const run=()=>{t=false;const y=Math.min(scrollY,900);fs.forEach(f=>{f.style.transform=`translateY(${(y*parseFloat(f.dataset.speed)).toFixed(1)}px)`;});};
+  const im=app.querySelector('.hero>img'); if(!im) return; let t=false;
+  const run=()=>{t=false;const y=Math.min(scrollY,innerHeight);im.style.transform=`translate3d(0,${(y*.18).toFixed(1)}px,0)`;};
   const on=()=>{if(!t){t=true;requestAnimationFrame(run);}};
   window.addEventListener('scroll',on,{passive:true}); cleanup.push(()=>window.removeEventListener('scroll',on));
 }
+
+/* ===== barra superior ===== */
+const topbar=document.getElementById('top');
+function setHeader(){
+  const onHome=!!app.querySelector('.hero');
+  const over=onHome && scrollY < innerHeight*.8 - 64;
+  topbar.classList.toggle('over',over);
+}
+addEventListener('scroll',setHeader,{passive:true});
+addEventListener('resize',setHeader);
+
+/* ===== paneles: menú, búsqueda, carrito ===== */
+const scrim=document.getElementById('scrim');
+const panels={menu:document.getElementById('menu'),search:document.getElementById('search'),cart:document.getElementById('cart')};
+const triggers={menu:document.getElementById('btnMenu'),search:document.getElementById('btnSearch'),cart:document.getElementById('btnCart')};
+let openName=null;
+function openPanel(n){
+  if(openName===n) return closePanel();
+  if(openName) panels[openName].classList.remove('on'),triggers[openName].setAttribute('aria-expanded','false');
+  openName=n; panels[n].classList.add('on'); triggers[n].setAttribute('aria-expanded','true');
+  scrim.classList.add('on'); document.body.style.overflow='hidden';
+  if(n==='cart') renderCart();
+  if(n==='search'){ renderSearch(''); setTimeout(()=>document.getElementById('q').focus(),60); }
+  else setTimeout(()=>panels[n].querySelector('a,button,input')?.focus(),60);
+}
+function closePanel(){
+  if(!openName) return;
+  const n=openName; openName=null;
+  panels[n].classList.remove('on'); triggers[n].setAttribute('aria-expanded','false');
+  scrim.classList.remove('on'); document.body.style.overflow='';
+  triggers[n].focus({preventScroll:true});
+}
+Object.keys(triggers).forEach(n=>triggers[n].addEventListener('click',()=>openPanel(n)));
+scrim.addEventListener('click',closePanel);
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closePanel));
+addEventListener('keydown',e=>{if(e.key==='Escape') closePanel();});
+
+/* menú */
+document.getElementById('menuNav').innerHTML=`
+  <a href="#/">Inicio</a>
+  <a href="#/#coleccion" data-go="coleccion">Drop 01</a>
+  <div class="sub">${ORDER.map(c=>`<a href="#/p/${c}"><i style="background:${COLORS[c].hex}"></i>AN-H03 · ${COLORS[c].name}</a>`).join('')}</div>
+  <a href="#/#detalles" data-go="detalles">Detalles</a>
+  <a href="#/#preventa" data-go="preventa">Précommande</a>
+  <div class="fine">
+    <a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">Instagram · @${CONFIG.ig}</a>
+    <a href="${igLink()}" target="_blank" rel="noopener">Escríbenos</a>
+  </div>`;
+document.getElementById('menuNav').addEventListener('click',e=>{if(e.target.closest('a')) setTimeout(closePanel,0);});
+
+/* búsqueda */
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function searchItems(q){
+  q=norm(q.trim());
+  return ORDER.filter(c=>{
+    const hay=norm(`${COLORS[c].name} ${COLORS[c].fr} polero poleron hoodie capucha paneles an-h03 drop 01 atelier noir`);
+    return !q || q.split(/\s+/).every(w=>hay.includes(w));
+  });
+}
+function renderSearch(q){
+  const r=searchItems(q), box=document.getElementById('res');
+  box.innerHTML = r.length
+    ? (q?'':'<div class="lbl">Drop 01</div>')+r.map(c=>`<a href="#/p/${c}"><img src="${M[c].photos[0].src}" alt="" loading="lazy"><span><b>AN-H03 Paneles</b><small>${COLORS[c].name} · ${money(CONFIG.precio)}</small></span></a>`).join('')
+    : `<p class="none">Sin resultados para “${q.replace(/[<>&]/g,'')}”. Prueba con “negro” o “polerón”.</p>`;
+}
+document.getElementById('q').addEventListener('input',e=>renderSearch(e.target.value));
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const a=document.querySelector('#res a');if(a){location.hash=a.getAttribute('href');closePanel();}});
+document.getElementById('res').addEventListener('click',e=>{if(e.target.closest('a')) setTimeout(closePanel,0);});
+
+/* carrito (se guarda en este navegador) */
+let cart=[];
+try{cart=JSON.parse(localStorage.getItem('an_cart')||'[]')}catch(_){cart=[]}
+const saveCart=()=>{try{localStorage.setItem('an_cart',JSON.stringify(cart))}catch(_){}};
+const cartCount=()=>cart.reduce((n,i)=>n+i.qty,0);
+function addToCart(color,size){
+  const it=cart.find(i=>i.color===color&&i.size===size);
+  if(it) it.qty++; else cart.push({color,size,qty:1});
+  saveCart(); updateBadge();
+}
+function updateBadge(){const b=document.getElementById('badge'),n=cartCount();b.hidden=!n;b.textContent=n;}
+function renderCart(){
+  const body=document.getElementById('cartBody'), foot=document.getElementById('cartFoot');
+  if(!cart.length){
+    body.innerHTML=`<div class="cart-empty"><h3>Tu carrito está vacío</h3><p>${CONFIG.preventaAbierta?'Elige un color y una talla para empezar.':'La preventa del drop 01 abre prochainement.'}</p><div class="cta-row"><a class="btn solid" href="#/#coleccion" data-go="coleccion">Ver los colores</a></div></div>`;
+    foot.hidden=true; return;
+  }
+  body.innerHTML=cart.map((i,k)=>`<div class="ci"><img src="${M[i.color].photos[0].src}" alt=""><div><b>AN-H03 Paneles</b><small>${COLORS[i.color].name} · Talla ${i.size}</small><div class="qty"><button data-q="-1" data-k="${k}" aria-label="Menos">−</button><span>${i.qty}</span><button data-q="1" data-k="${k}" aria-label="Más">+</button></div></div><div style="text-align:right">${money(CONFIG.precio*i.qty)}<br><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join('');
+  const total=cart.reduce((n,i)=>n+CONFIG.precio*i.qty,0);
+  foot.hidden=false;
+  foot.innerHTML=`<div class="tot"><span>Total</span><b>${money(total)}</b></div><button class="btn solid" id="order">Pedir por Instagram</button><span class="note">Copiamos tu pedido; pégalo en el mensaje. El pago se coordina por ahí.</span>`;
+  document.getElementById('order').onclick=()=>{
+    const txt='Hola ATELIER NOIR, quiero pedir:\n'+cart.map(i=>`- AN-H03 Paneles ${COLORS[i.color].name}, talla ${i.size} x${i.qty}`).join('\n')+`\nTotal: ${money(total)}`;
+    try{navigator.clipboard.writeText(txt)}catch(_){}
+    window.open(igLink(),'_blank','noopener');
+  };
+}
+document.getElementById('cartBody').addEventListener('click',e=>{
+  const q=e.target.closest('[data-q]'), r=e.target.closest('[data-rm]');
+  if(q){const i=cart[+q.dataset.k]; i.qty+=+q.dataset.q; if(i.qty<1) cart.splice(+q.dataset.k,1);}
+  else if(r){cart.splice(+r.dataset.rm,1);}
+  else return;
+  saveCart(); updateBadge(); renderCart();
+});
+updateBadge();
 
 /* ===== router ===== */
 function route(){
@@ -407,6 +573,7 @@ function route(){
   const [path,anchor]=h.split('#');
   const m=path.match(/^p\/(\w+)/);
   if(m) viewProduct(m[1]); else viewHome();
+  setHeader();
   if(anchor){ requestAnimationFrame(()=>document.getElementById(anchor)?.scrollIntoView({behavior:reduce?'auto':'smooth'})); }
   else window.scrollTo(0,0);
 }
