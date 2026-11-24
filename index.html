@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ATELIER NOIR™ — Drop 01</title>
-<meta name="description" content="Streetwear chileno. Drop 01: polerón AN-H03 Paneles, 100% algodón 550 g/m², corte relajado, en cuatro colores. Prochainement.">
+<title>ATELIER NOIR™ — Drop SANS</title>
+<meta name="description" content="Streetwear chileno. Drop SANS: polerón SANS, 100% algodón 550 g/m², corte relajado, en cuatro colores. Prochainement.">
 <meta name="theme-color" content="#ECE6DA">
-<meta property="og:title" content="ATELIER NOIR™ — Drop 01">
-<meta property="og:description" content="Polerón AN-H03 Paneles. Pesado, relajado, sans bruit.">
+<meta property="og:title" content="ATELIER NOIR™ — Drop SANS">
+<meta property="og:description" content="Polerón SANS. Pesado, relajado, sans bruit.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://benjaminoterod.github.io/atelier-noir/assets/portada.webp">
 <link rel="icon" href="assets/favicon.png">
@@ -381,6 +381,58 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
   .ft-top{grid-template-columns:1fr}
 }
 
+/* ===================== galeria automatica + visor ===================== */
+.ctrl2{display:flex;align-items:center;gap:18px;padding-top:16px}
+.ctrl2 .n{font-size:12px;letter-spacing:.14em;min-width:64px;font-variant-numeric:tabular-nums}
+.ctrl2 .bar{flex:1;height:1px;background:var(--line);position:relative;overflow:hidden}
+.ctrl2 .bar i{position:absolute;left:0;right:0;top:0;bottom:0;background:var(--ink);transform-origin:left center;transform:scaleX(0)}
+.pp{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:10px 0 10px 8px;color:var(--mute);transition:color .2s}
+.pp:hover{color:var(--ink)}
+.strip figure{cursor:zoom-in;overflow:hidden}
+.strip.drag figure{cursor:grabbing}
+.strip figure img{transition:transform 1.2s var(--ease)}
+.strip figure:hover img{transform:scale(1.025)}
+.strip figure:focus-visible{outline-offset:-3px}
+
+.lb{position:fixed;inset:0;z-index:95;background:rgba(236,230,218,.97);opacity:0;transition:opacity .38s var(--ease)}
+.lb.open{opacity:1}
+.lb[hidden]{display:none}
+.lb-stage{position:absolute;inset:0;display:grid;place-items:center;padding:64px clamp(12px,4vw,64px) 58px}
+#lbImg{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;opacity:0;transform:scale(.965);transition:opacity .5s var(--ease),transform .7s var(--ease);user-select:none;-webkit-user-drag:none}
+#lbImg.on{opacity:1;transform:none}
+.lb-p,.lb-n{position:absolute;top:64px;bottom:58px;width:50%;z-index:2}
+.lb-p{left:0;cursor:w-resize}
+.lb-n{right:0;cursor:e-resize}
+.lb-x{position:absolute;top:10px;right:calc(var(--gut) - 10px);z-index:3}
+.lb-c{position:absolute;left:0;right:0;bottom:20px;text-align:center;font-size:12px;letter-spacing:.16em;font-variant-numeric:tabular-nums}
+
+@media (prefers-reduced-motion:no-preference){
+  #app.enter{animation:pgin .7s var(--ease) both}
+  @keyframes pgin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .buybox>*{animation:rise .8s var(--ease) both}
+  .buybox>*:nth-child(2){animation-delay:.05s}.buybox>*:nth-child(3){animation-delay:.1s}
+  .buybox>*:nth-child(4),.buybox>*:nth-child(5){animation-delay:.15s}
+  .buybox>*:nth-child(6),.buybox>*:nth-child(7){animation-delay:.2s}
+  .buybox>*:nth-child(n+8){animation-delay:.26s}
+  .strip figure{animation:slidein 1s var(--ease) both}
+  .strip figure:nth-child(2){animation-delay:.08s}.strip figure:nth-child(3){animation-delay:.16s}.strip figure:nth-child(n+4){animation-delay:.22s}
+  @keyframes slidein{from{opacity:0}to{opacity:1}}
+  img.fade{opacity:0;transition:opacity .7s var(--ease)}
+  img.fade.ok{opacity:1}
+}
+
+/* banner ancho */
+.wide{padding:clamp(70px,10vw,140px) var(--gut) 0}
+.wb{position:relative;display:block;overflow:hidden;aspect-ratio:16/9;background:#1a1a1a;color:#fff}
+.wb img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease)}
+.wb:hover img,.wb:focus-visible img{transform:scale(1.035)}
+.wb::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0) 40%,rgba(0,0,0,.6));pointer-events:none}
+.wb-t{position:absolute;z-index:2;left:clamp(18px,3vw,44px);right:clamp(18px,3vw,44px);bottom:clamp(18px,3vw,40px);display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.wb-t b{font:italic 900 clamp(70px,12vw,210px)/.78 var(--disp);text-transform:uppercase;letter-spacing:-.01em}
+.wb-t small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-align:right;line-height:1.6}
+.wb-t .go{display:inline-block;margin-top:6px;border-bottom:1px solid #fff}
+@media (max-width:700px){.wb{aspect-ratio:4/5}.wb-t{flex-direction:column;align-items:flex-start}.wb-t small{text-align:left}}
+
 </style>
 </head>
 <body>
@@ -418,13 +470,21 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
   <div class="cart-f" id="cartFoot" hidden></div>
 </aside>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+  <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <button class="lb-p" type="button" aria-label="Foto anterior"></button>
+  <button class="lb-n" type="button" aria-label="Foto siguiente"></button>
+  <button class="ib lb-x" type="button" aria-label="Cerrar foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  <div class="lb-c" id="lbC"></div>
+</div>
+
 <main id="app" tabindex="-1"></main>
 
 <footer class="ft">
   <div class="ft-top">
     <div class="ft-col">
       <b class="ft-b">ATELIER NOIR™</b>
-      <p>Streetwear chileno. Drop 01: polerón AN-H03 Paneles, 100% algodón de 550 g/m², en cuatro colores.</p>
+      <p>Streetwear chileno. Drop SANS: polerón SANS, 100% algodón de 550 g/m², en cuatro colores.</p>
     </div>
     <div class="ft-col">
       <b class="ft-b">Précommande</b>
@@ -433,7 +493,7 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
     </div>
   </div>
   <nav class="ft-links" aria-label="Pie de página">
-    <a href="#/">Inicio</a><a href="#/#coleccion" data-go="coleccion">Drop 01</a><a href="#/#polerones" data-go="polerones">Polerones</a><a href="#/#detalles" data-go="detalles">Detalles</a><a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">Instagram</a><a href="https://ig.me/m/ateliernoir.cl" target="_blank" rel="noopener">Contacto</a>
+    <a href="#/">Inicio</a><a href="#/#coleccion" data-go="coleccion">Drop SANS</a><a href="#/#polerones" data-go="polerones">Polerones</a><a href="#/#detalles" data-go="detalles">Detalles</a><a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">Instagram</a><a href="https://ig.me/m/ateliernoir.cl" target="_blank" rel="noopener">Contacto</a>
   </nav>
   <div class="ft-word" aria-hidden="true"><span>ATELIER NOIR</span></div>
   <div class="ft-legal"><span>© 2026 ATELIER NOIR™</span><span>Hecho en Chile</span></div>
@@ -465,8 +525,9 @@ let currentColor = 'negro';
 const img = (o, alt, extra='') => `<img src="${o.src}" width="${o.w}" height="${o.h}" alt="${alt}" ${extra}>`;
 const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
 
-const MQ = ['Drop 01','AN-H03 Paneles','100% algodón · 550 g/m²','Prochainement','Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
+const MQ = ['Drop SANS','100% algodón · 550 g/m²','Prochainement','Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
 /* ===== modelos recortados ===== */
+const ph = (c,f) => M[c].photos.find(o=>o.src.endsWith('/'+f+'.webp')) || M[c].photos[0];
 const CUT = {negro:[382,1143], marino:[469,1355], gris:[855,1358], cafe:[674,1399]};
 const LOOK = [ // [clase, [color, foto], velocidad]
   ['a',['negro',3],.07], ['b',['cafe',1],-.05], ['c',['marino',1],.06],
@@ -474,8 +535,8 @@ const LOOK = [ // [clase, [color, foto], velocidad]
 ];
 function cutRow(list){
   return `<div class="cutrow">${list.map((c,i)=>`
-    <a class="cut rv" style="transition-delay:${i*80}ms" href="#/p/${c}" aria-label="Ver AN-H03 Paneles ${COLORS[c].name}">
-      <span class="fig"><img src="assets/cut-${c}.webp" width="${CUT[c][0]}" height="${CUT[c][1]}" alt="Modelo con el polerón AN-H03 ${COLORS[c].name}" loading="lazy"></span>
+    <a class="cut rv" style="transition-delay:${i*80}ms" href="#/p/${c}" aria-label="Ver Drop SANS ${COLORS[c].name}">
+      <span class="fig"><img src="assets/cut-${c}.webp" width="${CUT[c][0]}" height="${CUT[c][1]}" alt="Modelo con el polerón SANS ${COLORS[c].name}" loading="lazy"></span>
       <span class="cap"><b>${COLORS[c].name}</b><small>${money(CONFIG.precio)}</small></span>
     </a>`).join('')}</div>`;
 }
@@ -490,59 +551,66 @@ function startCollage(){
 
 /* ===== Portada ===== */
 function viewHome(){
-  document.title = 'ATELIER NOIR™ — Drop 01';
+  document.title = 'ATELIER NOIR™ — Drop SANS';
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
-    <picture><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón AN-H03 puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
-    <h1 class="sr">ATELIER NOIR — Drop 01, polerón AN-H03 Paneles</h1>
+    <picture><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
+    <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
   </section>
 
   <div class="marquee" aria-hidden="true"><div class="mq-t">${(MQ+MQ)}</div></div>
 
   <section id="coleccion" class="shop" aria-label="Productos">
-    <div class="shop-h rv"><span>Shop · Drop 01</span><a href="#/#polerones" data-go="polerones">Ver todo</a></div>
+    <div class="shop-h rv"><span>Shop · Drop SANS</span><a href="#/#polerones" data-go="polerones">Ver todo</a></div>
     <div class="shop-row">
       ${ORDER.flatMap(c=>M[c].mockups.map(m=>({c,m}))).map((x,i)=>`
-      <a class="si rv" style="transition-delay:${i*45}ms" href="#/p/${x.c}" aria-label="AN-H03 ${COLORS[x.c].name}, ${x.m.label}">
+      <a class="si rv" style="transition-delay:${i*45}ms" href="#/p/${x.c}" aria-label="Drop SANS ${COLORS[x.c].name}, ${x.m.label}">
         <span class="pb"><img src="${x.m.src}" width="${x.m.w}" height="${x.m.h}" alt="" loading="lazy"></span>
-        <span class="t">AN-H03 · ${COLORS[x.c].name}<small>${x.m.label==='frente'?'Frente':'Espalda'} · ${money(CONFIG.precio)}</small></span>
+        <span class="t">SANS · ${COLORS[x.c].name}<small>${x.m.label==='frente'?'Frente':'Espalda'} · ${money(CONFIG.precio)}</small></span>
       </a>`).join('')}
     </div>
   </section>
 
   <section class="duo" aria-label="Homme y Femme" style="padding-top:0;padding-bottom:0">
-    <a class="ban rv" href="#/p/negro">${img(M.negro.photos[6],'Modelo hombre con el polerón AN-H03 negro','loading="lazy"')}
-      <span class="ban-t"><b>Homme</b><small>AN-H03 · Noir<br><span class="go">Ver</span></small></span></a>
-    <a class="ban rv" href="#/p/marino" style="transition-delay:90ms">${img(M.marino.photos[0],'Modelo mujer con el polerón AN-H03 azul marino','loading="lazy"')}
-      <span class="ban-t"><b>Femme</b><small>AN-H03 · Marine<br><span class="go">Ver</span></small></span></a>
+    <a class="ban rv" href="#/p/negro">${img(ph('negro','negro-8'),'Modelo caminando por la calle con el polerón SANS negro','loading="lazy"')}
+      <span class="ban-t"><b>Homme</b><small>SANS · Noir<br><span class="go">Ver</span></small></span></a>
+    <a class="ban rv" href="#/p/marino" style="transition-delay:90ms">${img(M.marino.photos[0],'Modelo mujer con el polerón SANS azul marino','loading="lazy"')}
+      <span class="ban-t"><b>Femme</b><small>SANS · Marine<br><span class="go">Ver</span></small></span></a>
   </section>
 
   <section id="polerones" class="pgs" aria-label="Polerones">
     <h2 class="pg-h rv">Polerones</h2>
-    <p class="pg-s rv">AN-H03 Paneles · 100% algodón · 550 g/m²</p>
+    <p class="pg-s rv">Drop SANS · 100% algodón · 550 g/m²</p>
     <div class="pgrid">
       ${ORDER.map((c,i)=>`
-      <a class="pc rv" style="transition-delay:${i*70}ms" href="#/p/${c}" aria-label="Ver AN-H03 Paneles ${COLORS[c].name}">
-        <span class="pb"><span class="tag">Drop 01</span>
-          <img class="fr" src="${M[c].mockups[0].src}" width="${M[c].mockups[0].w}" height="${M[c].mockups[0].h}" alt="Polerón AN-H03 ${COLORS[c].name}, frente" loading="lazy">
+      <a class="pc rv" style="transition-delay:${i*70}ms" href="#/p/${c}" aria-label="Ver Drop SANS ${COLORS[c].name}">
+        <span class="pb"><span class="tag">Drop SANS</span>
+          <img class="fr" src="${M[c].mockups[0].src}" width="${M[c].mockups[0].w}" height="${M[c].mockups[0].h}" alt="Polerón SANS ${COLORS[c].name}, frente" loading="lazy">
           <img class="bk" src="${M[c].mockups[1].src}" width="${M[c].mockups[1].w}" height="${M[c].mockups[1].h}" alt="" aria-hidden="true" loading="lazy"></span>
-        <span class="cap"><span><b>AN-H03 Paneles</b><small>${COLORS[c].name} · ${COLORS[c].fr}</small></span><span>${money(CONFIG.precio)}</span></span>
+        <span class="cap"><span><b>Drop SANS</b><small>${COLORS[c].name} · ${COLORS[c].fr}</small></span><span>${money(CONFIG.precio)}</span></span>
       </a>`).join('')}
     </div>
   </section>
 
+  <section class="wide" aria-label="Drop SANS">
+    <a class="wb rv" href="#/p/cafe">
+      <picture><source media="(max-width:700px)" srcset="assets/rugby-m.webp"><img src="assets/rugby.webp" width="3200" height="1803" alt="Dos amigos con el polerón SANS negro y café lanzándose una pelota de rugby al atardecer" loading="lazy"></picture>
+      <span class="wb-t"><b>Drop<br>SANS</b><small>Prochainement · Atelier Noir<br><span class="go">Ver la colección</span></small></span>
+    </a>
+  </section>
+
   <section class="feat-wrap" aria-label="Destacados" style="padding-left:0;padding-right:0;padding-bottom:0">
     <div class="feat">
-      <a class="ph rv" href="#/p/cafe">${img(M.cafe.photos[1],'Modelo con el polerón AN-H03 café tomando mate','loading="lazy"')}
+      <a class="ph rv" href="#/p/cafe">${img(ph('cafe','cafe-2'),'Modelo con el polerón SANS café tomando mate','loading="lazy"')}
         <span class="ov"><b>Sans<br>bruit</b><span>Ver café</span></span></a>
-      <a class="pr rv" href="#/p/cafe" style="transition-delay:90ms"><span class="im"><img src="assets/cut-cafe.webp" width="${CUT.cafe[0]}" height="${CUT.cafe[1]}" alt="Modelo con el polerón AN-H03 café" loading="lazy"></span>
-        <span class="t">AN-H03 Paneles · Café<small>${money(CONFIG.precio)}</small></span></a>
+      <a class="pr rv" href="#/p/cafe" style="transition-delay:90ms"><span class="im"><img src="assets/cut-cafe.webp" width="${CUT.cafe[0]}" height="${CUT.cafe[1]}" alt="Modelo con el polerón SANS café" loading="lazy"></span>
+        <span class="t">Drop SANS · Café<small>${money(CONFIG.precio)}</small></span></a>
     </div>
     <div class="feat rev">
-      <a class="ph rv" href="#/p/gris">${img(M.gris.photos[1],'Dos modelos con el polerón AN-H03 gris','loading="lazy"')}
+      <a class="ph rv" href="#/p/gris">${img(ph('gris','gris-3'),'Modelo con el polerón SANS gris en una cafetería','loading="lazy"')}
         <span class="ov"><b>Coutures<br>ouvertes</b><span>Ver gris</span></span></a>
-      <a class="pr rv" href="#/p/gris" style="transition-delay:90ms"><span class="im"><img src="assets/cut-gris.webp" width="${CUT.gris[0]}" height="${CUT.gris[1]}" alt="Dos modelos con el polerón AN-H03 gris" loading="lazy"></span>
-        <span class="t">AN-H03 Paneles · Gris<small>${money(CONFIG.precio)}</small></span></a>
+      <a class="pr rv" href="#/p/gris" style="transition-delay:90ms"><span class="im"><img src="assets/cut-gris.webp" width="${CUT.gris[0]}" height="${CUT.gris[1]}" alt="Dos modelos con el polerón SANS gris" loading="lazy"></span>
+        <span class="t">Drop SANS · Gris<small>${money(CONFIG.precio)}</small></span></a>
     </div>
   </section>
 
@@ -570,32 +638,31 @@ function viewProduct(c){
   const col = COLORS[c], d = M[c];
   if(!col){ location.hash = '#/'; return; }
   currentColor = c;
-  document.title = `AN-H03 Paneles ${col.name} — ATELIER NOIR™`;
+  document.title = `Drop SANS ${col.name} — ATELIER NOIR™`;
   const items = [
-    ...d.photos.map((o,i)=>({o,cls:'',alt:`AN-H03 Paneles ${col.name}, foto ${i+1}`,cap:''})),
+    ...d.photos.map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
     ...d.mockups.map(o=>({o,cls:'mock',alt:`Mockup ${o.label} del polerón ${col.name}`,cap:'Mockup · '+o.label}))
   ];
   const total = items.length;
   const others = ORDER.filter(x=>x!==c);
   app.innerHTML = `
   <div class="pdp">
-    <div class="crumb"><a href="#/">← Drop 01</a><span>AN-H03 Paneles</span></div>
+    <div class="crumb"><a href="#/">← Drop SANS</a><span>${col.name}</span></div>
     <div class="pdp2">
       <div class="strip-wrap">
         <div class="strip" id="strip" tabindex="0" aria-label="Fotos del producto">
-          ${items.map((it,i)=>`<figure class="${it.cls}">${img(it.o,it.alt,i<2?'fetchpriority="high"':'loading="lazy"')}${it.cap?`<figcaption>${it.cap}</figcaption>`:''}</figure>`).join('')}
+          ${items.map((it,i)=>`<figure class="${it.cls}" tabindex="0" role="button" aria-label="Ampliar foto ${i+1}">${img(it.o,it.alt,i<2?'fetchpriority="high"':'loading="lazy"')}${it.cap?`<figcaption>${it.cap}</figcaption>`:''}</figure>`).join('')}
         </div>
-        <div class="ctrl" style="padding-left:0;padding-right:0">
-          <button id="prev" aria-label="Anterior">←</button>
-          <span class="n" id="count">01 / ${String(total).padStart(2,'0')}</span>
-          <div class="bar"><i id="prog"></i></div>
-          <button id="next" aria-label="Siguiente">→</button>
+        <div class="ctrl2">
+          <span class="n" id="count" aria-live="polite">01 / ${String(total).padStart(2,'0')}</span>
+          <div class="bar" aria-hidden="true"><i id="prog"></i></div>
+          <button class="pp" id="pp" type="button" aria-pressed="false">Pausa</button>
         </div>
       </div>
 
       <aside class="buybox">
-        <div class="eyebrow">Drop 01 · AN-H03</div>
-        <h1>Paneles,<br><em>${col.name.toLowerCase()}</em></h1>
+        <div class="eyebrow">Drop SANS</div>
+        <h1>SANS,<br><em>${col.name.toLowerCase()}</em></h1>
         <div class="price">${money(CONFIG.precio)} <small>CLP · ${CONFIG.preventaAbierta?'Preventa':'Prochainement'}</small></div>
 
         <div class="lbl">Color</div>
@@ -630,7 +697,7 @@ function viewProduct(c){
           <p class="note" style="margin-top:10px">Prenda plana, en cm. Tolerancia ± 1 cm.</p></div></details>
       </aside>
     </div>
-    <section class="more"><div class="sec-h"><h2>Otros colores</h2><span>AN-H03</span></div>
+    <section class="more"><div class="sec-h"><h2>Otros colores</h2><span>Drop SANS</span></div>
       ${cutRow(others)}
     </section>
   </div>`;
@@ -647,29 +714,104 @@ function initSizes(){
 }
 
 function initStrip(total){
-  const s=document.getElementById('strip'), cnt=document.getElementById('count'), prog=document.getElementById('prog');
-  const figs=[...s.children];
-  const upd=()=>{
-    const max=s.scrollWidth-s.clientWidth;
-    prog.style.width=Math.max(8,(max>0?s.scrollLeft/max:1)*100)+'%';
-    let idx=0,best=1e9; figs.forEach((f,i)=>{const d=Math.abs(f.offsetLeft-s.scrollLeft-parseFloat(getComputedStyle(s).paddingLeft));if(d<best){best=d;idx=i;}});
-    if(max>0&&s.scrollLeft>=max-4) idx=total-1;
-    cnt.textContent=String(idx+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
-  };
-  const step=()=>Math.max(260,figs[0].getBoundingClientRect().width+14);
-  const go=dir=>s.scrollBy({left:dir*step(),behavior:reduce?'auto':'smooth'});
-  document.getElementById('prev').onclick=()=>go(-1);
-  document.getElementById('next').onclick=()=>go(1);
-  s.addEventListener('scroll',upd,{passive:true}); upd();
-  s.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1)}if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}});
+  const s=document.getElementById('strip'), cnt=document.getElementById('count'), prog=document.getElementById('prog'), pp=document.getElementById('pp');
+  const figs=[...s.children], DUR=3400;
+  let idx=0, anim=0, animating=false, hover=false, visible=true, userPause=reduce, idleUntil=0, el=0, last=performance.now(), raf=0;
+  let down=false, sx=0, sl=0, moved=false;
+  const pad=()=>parseFloat(getComputedStyle(s).paddingLeft)||0;
+  const maxL=()=>s.scrollWidth-s.clientWidth;
+  const label=()=>{cnt.textContent=String(idx+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');};
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const nearest=()=>{let k=0,bd=1e9;figs.forEach((f,i)=>{const d=Math.abs(f.offsetLeft-pad()-s.scrollLeft);if(d<bd){bd=d;k=i;}});if(maxL()>0&&s.scrollLeft>=maxL()-4)k=total-1;return k;};
+  function glide(to,ms){
+    cancelAnimationFrame(anim); const from=s.scrollLeft; to=Math.max(0,Math.min(maxL(),to));
+    if(Math.abs(to-from)<1){animating=false;return;}
+    animating=true; s.style.scrollSnapType='none'; const st=performance.now();
+    const tick=n=>{const k=Math.min(1,(n-st)/ms); s.scrollLeft=from+(to-from)*ease(k);
+      if(k<1) anim=requestAnimationFrame(tick); else {animating=false; s.style.scrollSnapType='';}};
+    anim=requestAnimationFrame(tick);
+  }
+  function goTo(i,ms){
+    const atEnd=s.scrollLeft>=maxL()-4;
+    if(i>=total||(atEnd&&i>idx)) i=0;
+    if(i<0) i=0;
+    idx=i; label(); el=0;
+    glide(figs[i].offsetLeft-pad(), ms||(i===0?1500:1150));
+  }
+  function frame(n){
+    raf=requestAnimationFrame(frame);
+    const dt=Math.min(700,n-last); last=n;
+    const run=!userPause&&!hover&&visible&&!document.hidden&&!lbOpen&&!down&&!openName&&n>idleUntil;
+    if(run&&!animating){ el+=dt; if(el>=DUR) goTo(idx+1); }
+    prog.style.transform=`scaleX(${Math.min(1,el/DUR).toFixed(3)})`;
+  }
+  raf=requestAnimationFrame(frame);
+  s.addEventListener('scroll',()=>{ if(animating) return; const k=nearest(); if(k!==idx){idx=k;label();} el=0; },{passive:true});
+  s.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hover=true;});
+  s.addEventListener('pointerleave',()=>{hover=false;});
+  s.addEventListener('touchstart',()=>{idleUntil=performance.now()+4000;cancelAnimationFrame(anim);animating=false;},{passive:true});
+  s.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'){e.preventDefault();idleUntil=performance.now()+4000;goTo(Math.min(total-1,idx+1));}
+    if(e.key==='ArrowLeft'){e.preventDefault();idleUntil=performance.now()+4000;goTo(Math.max(0,idx-1));}
+    if(e.key==='Enter'||e.key===' '){const f=e.target.closest('figure'); if(f){e.preventDefault();openFrom(f);}}
+  });
+  const setPP=()=>{pp.textContent=userPause?'Reproducir':'Pausa';pp.setAttribute('aria-pressed',String(userPause));};
+  pp.addEventListener('click',()=>{userPause=!userPause;setPP();}); setPP();
   /* arrastrar con mouse */
-  let down=false,sx=0,sl=0,moved=false;
-  s.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=s.scrollLeft;s.classList.add('drag');});
-  const mv=e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>3)moved=true;s.scrollLeft=sl-dx;};
-  const up=()=>{down=false;s.classList.remove('drag');};
-  window.addEventListener('pointermove',mv);window.addEventListener('pointerup',up);
-  cleanup.push(()=>{window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);});
-  window.addEventListener('resize',upd); cleanup.push(()=>window.removeEventListener('resize',upd));
+  s.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;moved=false;sx=e.clientX;sl=s.scrollLeft;cancelAnimationFrame(anim);animating=false;s.classList.add('drag');});
+  const mv=e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;s.scrollLeft=sl-dx;};
+  const up=()=>{if(!down)return;down=false;s.classList.remove('drag');idleUntil=performance.now()+2500;};
+  addEventListener('pointermove',mv); addEventListener('pointerup',up);
+  /* clic en una foto: visor grande */
+  const list=()=>figs.map(f=>{const i=f.querySelector('img');return {src:i.currentSrc||i.src,alt:i.alt,mock:f.classList.contains('mock')};});
+  const openFrom=f=>openLB(list(),figs.indexOf(f));
+  s.addEventListener('click',e=>{ if(moved){moved=false;return;} const f=e.target.closest('figure'); if(f) openFrom(f); });
+  /* solo corre si se ve en pantalla */
+  let io=null;
+  if('IntersectionObserver' in window){ io=new IntersectionObserver(es=>{visible=es[0].isIntersecting;},{threshold:.25}); io.observe(s); }
+  label();
+  cleanup.push(()=>{cancelAnimationFrame(raf);cancelAnimationFrame(anim);removeEventListener('pointermove',mv);removeEventListener('pointerup',up);io&&io.disconnect();});
+}
+
+/* ===== visor de fotos ===== */
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbC=document.getElementById('lbC');
+let lbOpen=false, lbList=[], lbI=0, lbBack=null, lbToken=0;
+function lbShow(i){
+  lbI=(i+lbList.length)%lbList.length; const it=lbList[lbI], tok=++lbToken;
+  lbImg.classList.remove('on');
+  lbC.textContent=String(lbI+1).padStart(2,'0')+' / '+String(lbList.length).padStart(2,'0');
+  const pre=new Image();
+  pre.onload=pre.onerror=()=>{ if(tok!==lbToken) return; setTimeout(()=>{ lbImg.src=it.src; lbImg.alt=it.alt; lb.classList.toggle('mock',it.mock); requestAnimationFrame(()=>requestAnimationFrame(()=>lbImg.classList.add('on'))); }, reduce?0:140); };
+  pre.src=it.src;
+}
+function openLB(list,i){
+  lbList=list; lbBack=document.activeElement; lb.hidden=false; lbOpen=true;
+  document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>lb.classList.add('open'));
+  lbShow(i); setTimeout(()=>lb.querySelector('.lb-x').focus({preventScroll:true}),30);
+}
+function closeLB(){
+  if(!lbOpen) return; lbOpen=false; lb.classList.remove('open'); document.body.style.overflow='';
+  setTimeout(()=>{ if(!lbOpen){ lb.hidden=true; lbImg.classList.remove('on'); } }, 380);
+  lbBack&&lbBack.focus&&lbBack.focus({preventScroll:true});
+}
+lb.querySelector('.lb-x').addEventListener('click',closeLB);
+lb.querySelector('.lb-p').addEventListener('click',()=>lbShow(lbI-1));
+lb.querySelector('.lb-n').addEventListener('click',()=>lbShow(lbI+1));
+addEventListener('keydown',e=>{ if(!lbOpen) return;
+  if(e.key==='Escape'){e.stopImmediatePropagation();closeLB();}
+  if(e.key==='ArrowRight') lbShow(lbI+1);
+  if(e.key==='ArrowLeft') lbShow(lbI-1);
+},true);
+let lbX=null;
+lb.addEventListener('pointerdown',e=>{lbX=e.clientX;});
+lb.addEventListener('pointerup',e=>{ if(lbX===null) return; const dx=e.clientX-lbX; lbX=null; if(e.pointerType!=='mouse'&&Math.abs(dx)>50) lbShow(lbI+(dx<0?1:-1)); });
+
+/* aparecer suave de imagenes */
+function fadeImgs(){
+  if(reduce) return;
+  app.querySelectorAll('img').forEach(i=>{ if(i.closest('.hero')) return; if(i.complete&&i.naturalWidth) return;
+    i.classList.add('fade'); const ok=()=>i.classList.add('ok'); i.addEventListener('load',ok,{once:true}); i.addEventListener('error',ok,{once:true}); });
 }
 
 /* ===== efectos ===== */
@@ -733,8 +875,8 @@ addEventListener('keydown',e=>{if(e.key==='Escape') closePanel();});
 /* menú */
 document.getElementById('menuNav').innerHTML=`
   <a href="#/">Inicio</a>
-  <a href="#/#coleccion" data-go="coleccion">Drop 01</a>
-  <div class="sub">${ORDER.map(c=>`<a href="#/p/${c}"><i style="background:${COLORS[c].hex}"></i>AN-H03 · ${COLORS[c].name}</a>`).join('')}</div>
+  <a href="#/#coleccion" data-go="coleccion">Drop SANS</a>
+  <div class="sub">${ORDER.map(c=>`<a href="#/p/${c}"><i style="background:${COLORS[c].hex}"></i>SANS · ${COLORS[c].name}</a>`).join('')}</div>
   <a href="#/#detalles" data-go="detalles">Detalles</a>
   <a href="#/#preventa" data-go="preventa">Précommande</a>
   <div class="fine">
@@ -748,14 +890,14 @@ const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 function searchItems(q){
   q=norm(q.trim());
   return ORDER.filter(c=>{
-    const hay=norm(`${COLORS[c].name} ${COLORS[c].fr} polero poleron hoodie capucha paneles an-h03 drop 01 atelier noir`);
+    const hay=norm(`${COLORS[c].name} ${COLORS[c].fr} polero poleron hoodie capucha paneles an-h03 drop sans 01 atelier noir`);
     return !q || q.split(/\s+/).every(w=>hay.includes(w));
   });
 }
 function renderSearch(q){
   const r=searchItems(q), box=document.getElementById('res');
   box.innerHTML = r.length
-    ? (q?'':'<div class="lbl">Drop 01</div>')+r.map(c=>`<a href="#/p/${c}"><img src="${M[c].photos[0].src}" alt="" loading="lazy"><span><b>AN-H03 Paneles</b><small>${COLORS[c].name} · ${money(CONFIG.precio)}</small></span></a>`).join('')
+    ? (q?'':'<div class="lbl">Drop SANS</div>')+r.map(c=>`<a href="#/p/${c}"><img src="${M[c].photos[0].src}" alt="" loading="lazy"><span><b>Drop SANS</b><small>${COLORS[c].name} · ${money(CONFIG.precio)}</small></span></a>`).join('')
     : `<p class="none">Sin resultados para “${q.replace(/[<>&]/g,'')}”. Prueba con “negro” o “polerón”.</p>`;
 }
 document.getElementById('q').addEventListener('input',e=>renderSearch(e.target.value));
@@ -779,12 +921,12 @@ function renderCart(){
     body.innerHTML=`<div class="cart-empty"><h3>Tu carrito está vacío</h3><p>${CONFIG.preventaAbierta?'Elige un color y una talla para empezar.':'La preventa del drop 01 abre prochainement.'}</p><div class="cta-row"><a class="btn solid" href="#/#coleccion" data-go="coleccion">Ver los colores</a></div></div>`;
     foot.hidden=true; return;
   }
-  body.innerHTML=cart.map((i,k)=>`<div class="ci"><img src="${M[i.color].photos[0].src}" alt=""><div><b>AN-H03 Paneles</b><small>${COLORS[i.color].name} · Talla ${i.size}</small><div class="qty"><button data-q="-1" data-k="${k}" aria-label="Menos">−</button><span>${i.qty}</span><button data-q="1" data-k="${k}" aria-label="Más">+</button></div></div><div style="text-align:right">${money(CONFIG.precio*i.qty)}<br><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join('');
+  body.innerHTML=cart.map((i,k)=>`<div class="ci"><img src="${M[i.color].photos[0].src}" alt=""><div><b>Drop SANS</b><small>${COLORS[i.color].name} · Talla ${i.size}</small><div class="qty"><button data-q="-1" data-k="${k}" aria-label="Menos">−</button><span>${i.qty}</span><button data-q="1" data-k="${k}" aria-label="Más">+</button></div></div><div style="text-align:right">${money(CONFIG.precio*i.qty)}<br><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join('');
   const total=cart.reduce((n,i)=>n+CONFIG.precio*i.qty,0);
   foot.hidden=false;
   foot.innerHTML=`<div class="tot"><span>Total</span><b>${money(total)}</b></div><button class="btn solid" id="order">Pedir por Instagram</button><span class="note">Copiamos tu pedido; pégalo en el mensaje. El pago se coordina por ahí.</span>`;
   document.getElementById('order').onclick=()=>{
-    const txt='Hola ATELIER NOIR, quiero pedir:\n'+cart.map(i=>`- AN-H03 Paneles ${COLORS[i.color].name}, talla ${i.size} x${i.qty}`).join('\n')+`\nTotal: ${money(total)}`;
+    const txt='Hola ATELIER NOIR, quiero pedir:\n'+cart.map(i=>`- Drop SANS ${COLORS[i.color].name}, talla ${i.size} x${i.qty}`).join('\n')+`\nTotal: ${money(total)}`;
     try{navigator.clipboard.writeText(txt)}catch(_){}
     window.open(igLink(),'_blank','noopener');
   };
@@ -806,6 +948,8 @@ function route(){
   const m=path.match(/^p\/(\w+)/);
   if(m) viewProduct(m[1]); else viewHome();
   setHeader();
+  app.classList.remove('enter'); void app.offsetWidth; app.classList.add('enter');
+  fadeImgs();
   if(anchor){ requestAnimationFrame(()=>document.getElementById(anchor)?.scrollIntoView({behavior:reduce?'auto':'smooth'})); }
   else window.scrollTo(0,0);
 }

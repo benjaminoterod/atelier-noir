@@ -2,6 +2,11 @@ window.MANIFEST={
  "negro": {
   "photos": [
    {
+    "src": "assets/fotos/negro-8.webp",
+    "w": 1333,
+    "h": 2000
+   },
+   {
     "src": "assets/fotos/negro-1.webp",
     "w": 1000,
     "h": 1500
@@ -93,6 +98,11 @@ window.MANIFEST={
  "gris": {
   "photos": [
    {
+    "src": "assets/fotos/gris-3.webp",
+    "w": 1461,
+    "h": 2000
+   },
+   {
     "src": "assets/fotos/gris-1.webp",
     "w": 1072,
     "h": 1467
@@ -124,6 +134,11 @@ window.MANIFEST={
     "src": "assets/fotos/cafe-1.webp",
     "w": 1072,
     "h": 1467
+   },
+   {
+    "src": "assets/fotos/cafe-4.webp",
+    "w": 2200,
+    "h": 1240
    },
    {
     "src": "assets/fotos/cafe-2.webp",
