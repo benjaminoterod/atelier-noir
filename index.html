@@ -13,12 +13,14 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,700;1,800;1,900&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --cream:#ECE6DA; --cream-2:#E3DCCD; --ink:#0E0E0E; --mute:#6b665c; --line:rgba(14,14,14,.14);
   --gut:clamp(16px,3.2vw,44px);
-  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --serif:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+  --disp:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+  --panel:#F4F0E8;
   --sans:'Inter Tight',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
@@ -275,6 +277,110 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
   .facts{grid-template-columns:1fr}
   .sec-h span{display:none}
 }
+/* ===================== estilo dropstudios ===================== */
+.sec-h h2,.buybox h1,.info h1,.menu a,.cart-empty h3,.soon h2,.facts h3,.hero h1{font-family:var(--disp);font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:-.005em}
+.buybox h1 em,.info h1 em,.soon h2 em{font-style:italic;font-weight:800}
+.menu a{font-size:clamp(40px,6vw,54px);line-height:1}
+.menu .sub a,.menu .fine a{font-family:var(--sans);font-style:normal;font-weight:400;text-transform:none}
+.menu .fine a{text-transform:uppercase}
+.search input{font-family:var(--sans);font-size:clamp(20px,2.6vw,28px);font-weight:500}
+
+/* cinta */
+.marquee{overflow:hidden;background:var(--ink);color:var(--cream);padding:11px 0;white-space:nowrap}
+.mq-t{display:inline-block;font:italic 800 clamp(16px,1.6vw,22px)/1 var(--disp);text-transform:uppercase;letter-spacing:.04em}
+.mq-t span{padding:0 .9em}
+.mq-t span:nth-child(even){opacity:.45}
+@media (prefers-reduced-motion:no-preference){.mq-t{animation:mq 38s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}}
+
+/* shop our products */
+.shop{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(40px,6vw,80px)}
+.shop-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.shop-h a{color:var(--ink);border-bottom:1px solid currentColor;padding-bottom:2px}
+.shop-row{display:grid;grid-template-columns:repeat(8,1fr);gap:clamp(8px,1vw,14px)}
+.si{display:flex;flex-direction:column;gap:9px}
+.si .pb{display:grid;aspect-ratio:1/1;place-items:center;background:var(--panel);padding:12%;overflow:hidden}
+.si img{max-width:100%;max-height:100%;width:auto;height:auto;transition:transform .7s var(--ease)}
+.si:hover img,.si:focus-visible img{transform:scale(1.07)}
+.si .t{font-size:11px;letter-spacing:.06em;text-transform:uppercase;line-height:1.35}
+.si .t small{display:block;color:var(--mute);letter-spacing:.02em;text-transform:none}
+
+/* banners dobles */
+.duo,.feat{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1vw,14px);padding:0 var(--gut)}
+.feat{margin-top:clamp(8px,1vw,14px)}
+.ban{position:relative;display:block;overflow:hidden;aspect-ratio:4/5;background:#1a1a1a;color:#fff}
+.ban img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.ban:hover img,.ban:focus-visible img{transform:scale(1.045)}
+.ban::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0) 45%,rgba(0,0,0,.55));pointer-events:none}
+.ban-t{position:absolute;z-index:2;left:clamp(16px,2.6vw,38px);right:clamp(16px,2.6vw,38px);bottom:clamp(16px,2.6vw,34px);display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.ban-t b{font:italic 900 clamp(64px,10vw,168px)/.78 var(--disp);text-transform:uppercase;letter-spacing:-.01em}
+.ban-t small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-align:right;line-height:1.5;padding-bottom:.3em}
+.ban-t .go{display:inline-block;margin-top:8px;border-bottom:1px solid #fff}
+
+/* grilla de polerones */
+.pgs{padding-top:clamp(70px,10vw,140px)}
+.pg-h{text-align:center;font:italic 900 clamp(48px,8vw,124px)/.82 var(--disp);text-transform:uppercase;margin-bottom:clamp(8px,1vw,12px)}
+.pg-s{text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:clamp(26px,4vw,52px)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,20px)}
+.pc{display:block}
+.pc .pb{display:block;position:relative;aspect-ratio:4/5;background:var(--panel);overflow:hidden}
+.pc .pb img{position:absolute;left:9%;top:9%;width:82%;height:82%;object-fit:contain;transition:opacity .5s var(--ease),transform .9s var(--ease)}
+.pc .pb img.bk{opacity:0}
+.pc:hover .pb img.bk,.pc:focus-visible .pb img.bk{opacity:1}
+.pc:hover .pb img.fr,.pc:focus-visible .pb img.fr{opacity:0}
+.pc:hover .pb img{transform:scale(1.03)}
+.pc .tag{left:12px;top:12px}
+.pc .cap{display:flex;justify-content:space-between;gap:10px;padding-top:12px;font-size:13px}
+.pc .cap b{font-weight:500}
+.pc .cap small{display:block;color:var(--mute);font-size:12px}
+
+/* destacados */
+.feat-wrap{padding-top:clamp(70px,10vw,140px)}
+.feat .ph{position:relative;display:block;overflow:hidden;aspect-ratio:4/5;color:#fff;background:#1a1a1a}
+.feat .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.feat .ph:hover img{transform:scale(1.04)}
+.feat .ov{position:absolute;inset:auto 0 0 0;padding:clamp(18px,3vw,42px);background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.6))}
+.feat .ov b{display:block;font:italic 900 clamp(52px,7.4vw,124px)/.8 var(--disp);text-transform:uppercase}
+.feat .ov span{display:inline-block;margin-top:14px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid #fff;padding:9px 16px;transition:background .25s,color .25s}
+.feat .ph:hover .ov span{background:#fff;color:var(--ink)}
+.feat .pr{overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:var(--panel);aspect-ratio:4/5;padding:8%}
+.feat .pr .im{position:relative;flex:1 1 0;min-height:0;width:100%}
+.feat .pr img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .9s var(--ease)}
+.feat .pr:hover img{transform:translateY(-8px)}
+.feat .pr .t{text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.feat .pr .t small{display:block;color:var(--mute);letter-spacing:.04em;text-transform:none;margin-top:3px}
+.feat.rev .ph{order:2}
+
+/* detalles */
+.det{padding-top:clamp(70px,10vw,140px)}
+.facts h3{font-size:clamp(28px,2.6vw,36px);line-height:.95;margin-bottom:8px}
+
+/* pie gigante */
+.ft{display:block;padding:clamp(48px,7vw,90px) var(--gut) 0;border-top:1px solid var(--line);color:var(--ink);font-size:14px;letter-spacing:0;text-transform:none;overflow:hidden}
+.ft-top{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,120px);max-width:1100px}
+.ft-b{display:block;font:italic 800 clamp(30px,3vw,42px)/.95 var(--disp);text-transform:uppercase;margin-bottom:10px}
+.ft-col p{color:#3a372f;max-width:40ch}
+.ft-btn{margin-top:16px;padding:10px 18px}
+.ft-links{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:clamp(36px,5vw,64px);padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.ft-links a{color:var(--mute);transition:color .2s}
+.ft-links a:hover{color:var(--ink)}
+.ft-word{margin:clamp(14px,2vw,28px) calc(-1*var(--gut)) 0;line-height:.74;white-space:nowrap;text-align:center;overflow:hidden}
+.ft-word span{display:inline-block;font:italic 900 20.8vw/.8 var(--disp);text-transform:uppercase;letter-spacing:-.02em;transform:translateY(8%)}
+.ft-legal{display:flex;justify-content:space-between;gap:12px;padding:12px 0 16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+@media (prefers-reduced-motion:no-preference){
+  .ft-word span{transform:translateY(40%);opacity:0;transition:transform 1.2s var(--ease),opacity 1.2s var(--ease)}
+  .ft-word.in span{transform:translateY(8%);opacity:1}
+}
+
+@media (max-width:900px){
+  .shop-row{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:38vw;overflow-x:auto;scroll-snap-type:x proximity;margin:0 calc(-1*var(--gut));padding:0 var(--gut);scrollbar-width:none}
+  .shop-row::-webkit-scrollbar{display:none}
+  .si{scroll-snap-align:start}
+  .duo,.feat{grid-template-columns:1fr}
+  .feat.rev .ph{order:0}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .ft-top{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -314,9 +420,23 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
 
 <main id="app" tabindex="-1"></main>
 
-<footer>
-  <span>ATELIER NOIR™ · Hecho en Chile</span>
-  <a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">@ateliernoir.cl</a>
+<footer class="ft">
+  <div class="ft-top">
+    <div class="ft-col">
+      <b class="ft-b">ATELIER NOIR™</b>
+      <p>Streetwear chileno. Drop 01: polerón AN-H03 Paneles, 100% algodón de 550 g/m², en cuatro colores.</p>
+    </div>
+    <div class="ft-col">
+      <b class="ft-b">Précommande</b>
+      <p>Prochainement. Escríbenos por Instagram y te avisamos primero.</p>
+      <a class="btn ghost ft-btn" href="https://ig.me/m/ateliernoir.cl" target="_blank" rel="noopener">Avísame</a>
+    </div>
+  </div>
+  <nav class="ft-links" aria-label="Pie de página">
+    <a href="#/">Inicio</a><a href="#/#coleccion" data-go="coleccion">Drop 01</a><a href="#/#polerones" data-go="polerones">Polerones</a><a href="#/#detalles" data-go="detalles">Detalles</a><a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">Instagram</a><a href="https://ig.me/m/ateliernoir.cl" target="_blank" rel="noopener">Contacto</a>
+  </nav>
+  <div class="ft-word" aria-hidden="true"><span>ATELIER NOIR</span></div>
+  <div class="ft-legal"><span>© 2026 ATELIER NOIR™</span><span>Hecho en Chile</span></div>
 </footer>
 
 <script src="assets/manifest.js"></script>
@@ -345,6 +465,7 @@ let currentColor = 'negro';
 const img = (o, alt, extra='') => `<img src="${o.src}" width="${o.w}" height="${o.h}" alt="${alt}" ${extra}>`;
 const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
 
+const MQ = ['Drop 01','AN-H03 Paneles','100% algodón · 550 g/m²','Prochainement','Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
 /* ===== modelos recortados ===== */
 const CUT = {negro:[382,1143], marino:[469,1355], gris:[855,1358], cafe:[674,1399]};
 const LOOK = [ // [clase, [color, foto], velocidad]
@@ -376,19 +497,56 @@ function viewHome(){
     <h1 class="sr">ATELIER NOIR — Drop 01, polerón AN-H03 Paneles</h1>
   </section>
 
-  <section id="lookbook" class="look" aria-label="Lookbook">
-    <div class="eyebrow rv">Lookbook · Drop 01</div>
-    <div class="lk">
-      ${LOOK.map(l=>`<figure class="${l[0]} rv" data-sp="${l[2]}">${img(M[l[1][0]].photos[l[1][1]],'Modelos con el polerón AN-H03','loading="lazy"')}</figure>`).join('')}
+  <div class="marquee" aria-hidden="true"><div class="mq-t">${(MQ+MQ)}</div></div>
+
+  <section id="coleccion" class="shop" aria-label="Productos">
+    <div class="shop-h rv"><span>Shop · Drop 01</span><a href="#/#polerones" data-go="polerones">Ver todo</a></div>
+    <div class="shop-row">
+      ${ORDER.flatMap(c=>M[c].mockups.map(m=>({c,m}))).map((x,i)=>`
+      <a class="si rv" style="transition-delay:${i*45}ms" href="#/p/${x.c}" aria-label="AN-H03 ${COLORS[x.c].name}, ${x.m.label}">
+        <span class="pb"><img src="${x.m.src}" width="${x.m.w}" height="${x.m.h}" alt="" loading="lazy"></span>
+        <span class="t">AN-H03 · ${COLORS[x.c].name}<small>${x.m.label==='frente'?'Frente':'Espalda'} · ${money(CONFIG.precio)}</small></span>
+      </a>`).join('')}
     </div>
   </section>
 
-  <section id="coleccion" aria-label="Colores">
-    <div class="sec-h rv"><h2>AN-H03 Paneles</h2><span>4 colores · M — L — XL</span></div>
-    ${cutRow(ORDER)}
+  <section class="duo" aria-label="Homme y Femme" style="padding-top:0;padding-bottom:0">
+    <a class="ban rv" href="#/p/negro">${img(M.negro.photos[6],'Modelo hombre con el polerón AN-H03 negro','loading="lazy"')}
+      <span class="ban-t"><b>Homme</b><small>AN-H03 · Noir<br><span class="go">Ver</span></small></span></a>
+    <a class="ban rv" href="#/p/marino" style="transition-delay:90ms">${img(M.marino.photos[0],'Modelo mujer con el polerón AN-H03 azul marino','loading="lazy"')}
+      <span class="ban-t"><b>Femme</b><small>AN-H03 · Marine<br><span class="go">Ver</span></small></span></a>
   </section>
 
-  <section id="detalles" aria-label="Detalles">
+  <section id="polerones" class="pgs" aria-label="Polerones">
+    <h2 class="pg-h rv">Polerones</h2>
+    <p class="pg-s rv">AN-H03 Paneles · 100% algodón · 550 g/m²</p>
+    <div class="pgrid">
+      ${ORDER.map((c,i)=>`
+      <a class="pc rv" style="transition-delay:${i*70}ms" href="#/p/${c}" aria-label="Ver AN-H03 Paneles ${COLORS[c].name}">
+        <span class="pb"><span class="tag">Drop 01</span>
+          <img class="fr" src="${M[c].mockups[0].src}" width="${M[c].mockups[0].w}" height="${M[c].mockups[0].h}" alt="Polerón AN-H03 ${COLORS[c].name}, frente" loading="lazy">
+          <img class="bk" src="${M[c].mockups[1].src}" width="${M[c].mockups[1].w}" height="${M[c].mockups[1].h}" alt="" aria-hidden="true" loading="lazy"></span>
+        <span class="cap"><span><b>AN-H03 Paneles</b><small>${COLORS[c].name} · ${COLORS[c].fr}</small></span><span>${money(CONFIG.precio)}</span></span>
+      </a>`).join('')}
+    </div>
+  </section>
+
+  <section class="feat-wrap" aria-label="Destacados" style="padding-left:0;padding-right:0;padding-bottom:0">
+    <div class="feat">
+      <a class="ph rv" href="#/p/cafe">${img(M.cafe.photos[1],'Modelo con el polerón AN-H03 café tomando mate','loading="lazy"')}
+        <span class="ov"><b>Sans<br>bruit</b><span>Ver café</span></span></a>
+      <a class="pr rv" href="#/p/cafe" style="transition-delay:90ms"><span class="im"><img src="assets/cut-cafe.webp" width="${CUT.cafe[0]}" height="${CUT.cafe[1]}" alt="Modelo con el polerón AN-H03 café" loading="lazy"></span>
+        <span class="t">AN-H03 Paneles · Café<small>${money(CONFIG.precio)}</small></span></a>
+    </div>
+    <div class="feat rev">
+      <a class="ph rv" href="#/p/gris">${img(M.gris.photos[1],'Dos modelos con el polerón AN-H03 gris','loading="lazy"')}
+        <span class="ov"><b>Coutures<br>ouvertes</b><span>Ver gris</span></span></a>
+      <a class="pr rv" href="#/p/gris" style="transition-delay:90ms"><span class="im"><img src="assets/cut-gris.webp" width="${CUT.gris[0]}" height="${CUT.gris[1]}" alt="Dos modelos con el polerón AN-H03 gris" loading="lazy"></span>
+        <span class="t">AN-H03 Paneles · Gris<small>${money(CONFIG.precio)}</small></span></a>
+    </div>
+  </section>
+
+  <section id="detalles" class="det" aria-label="Detalles">
     <div class="sec-h rv"><h2>Hecho con calma</h2><span>Atelier noir</span></div>
     <div class="facts">
       <div class="rv"><h3>100% algodón</h3><p>Felpa pesada de 550 g/m², perchada por dentro. Sin mezclas, sin French terry.</p></div>
@@ -515,6 +673,13 @@ function initStrip(total){
 }
 
 /* ===== efectos ===== */
+function startFooter(){
+  const w=document.querySelector('.ft-word'); if(!w) return;
+  if(reduce||!('IntersectionObserver' in window)){w.classList.add('in');return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){w.classList.add('in');io.disconnect();}}),{threshold:.2});
+  io.observe(w);
+}
+startFooter();
 function startReveal(){
   const els=[...app.querySelectorAll('.rv')];
   if(reduce||!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
