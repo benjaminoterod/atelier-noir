@@ -493,6 +493,25 @@ body{letter-spacing:-.005em}
   .tt th{font-size:10px}
 }
 
+/* aviso de nuevo drop */
+.drop-alert{padding:0;border-bottom:1px solid var(--line);background:var(--cream)}
+.da-in{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:clamp(14px,2.4vw,36px);padding:clamp(18px,2.4vw,28px) var(--gut)}
+.da-tag{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--ink);padding:8px 12px 8px 10px;white-space:nowrap}
+.da-tag i{width:7px;height:7px;border-radius:50%;background:var(--ink);position:relative}
+.da-t{font:600 clamp(20px,2.4vw,34px)/1 var(--disp);letter-spacing:-.035em;text-transform:uppercase}
+.da-t span{color:var(--mute);margin-left:.35em}
+.da-s{font-size:13px;color:#3a372f;max-width:34ch}
+.da-b{white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){
+  .da-tag i::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--ink);animation:ping 1.8s var(--ease) infinite}
+  @keyframes ping{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+}
+@media (max-width:900px){
+  .da-in{grid-template-columns:1fr;justify-items:start;gap:12px}
+  .da-t span{display:block;margin:6px 0 0}
+  .da-b{width:100%;justify-content:center}
+}
+
 </style>
 </head>
 <body>
@@ -585,8 +604,10 @@ let currentColor = 'negro';
 const img = (o, alt, extra='') => `<img src="${o.src}" width="${o.w}" height="${o.h}" alt="${alt}" ${extra}>`;
 const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
 
-const MQ = ['Drop SANS','100% algodón · 550 g/m²','Prochainement','Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
+const MQ = ['Drop SANS','100% algodón · 550 g/m²',(CONFIG.preventaAbierta?'Preventa activa':'Prochainement'),'Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
 /* ===== modelos recortados ===== */
+/* fotos al aire libre: van en la portada, no en la galeria del producto */
+const NO_ESTUDIO = ['negro-8','cafe-4','gris-3','marino-4'];
 const ph = (c,f) => M[c].photos.find(o=>o.src.endsWith('/'+f+'.webp')) || M[c].photos[0];
 const CUT = {negro:[382,1143], marino:[469,1355], gris:[855,1358], cafe:[674,1399]};
 const LOOK = [ // [clase, [color, foto], velocidad]
@@ -616,6 +637,15 @@ function viewHome(){
   <section class="hero" aria-label="Portada">
     <picture><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
     <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
+  </section>
+
+  <section class="drop-alert" aria-label="Nuevo drop">
+    <div class="da-in rv">
+      <span class="da-tag"><i aria-hidden="true"></i>Nuevo drop</span>
+      <p class="da-t">Drop SANS <span>${CONFIG.preventaAbierta?'Preventa activa':'Preventa muy pronto'}</span></p>
+      <p class="da-s">${CONFIG.preventaAbierta?'Reserva el tuyo ahora y te lo despachamos con Blue Express cuando llegue la producción.':'Cuatro colores, tallas M, L y XL. Escríbenos y te avisamos primero.'}</p>
+      <a class="btn solid da-b" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a>
+    </div>
   </section>
 
   <div class="marquee" aria-hidden="true"><div class="mq-t">${(MQ+MQ)}</div></div>
@@ -772,7 +802,7 @@ function viewProduct(c){
   currentColor = c;
   document.title = `Drop SANS ${col.name} — ATELIER NOIR™`;
   const items = [
-    ...d.photos.map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
+    ...d.photos.filter(o=>!NO_ESTUDIO.some(f=>o.src.endsWith('/'+f+'.webp'))).map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
     ...d.mockups.map(o=>({o,cls:'mock',alt:`Mockup ${o.label} del polerón ${col.name}`,cap:'Mockup · '+o.label}))
   ];
   const total = items.length;
