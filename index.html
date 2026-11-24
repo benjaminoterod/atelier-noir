@@ -98,7 +98,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ---------- hero ---------- */
 .hero{position:relative;height:100vh;height:100svh;min-height:540px;overflow:hidden;color:var(--cream);background:#0b0b10}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 35%;will-change:transform}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(5,5,10,.3),rgba(5,5,10,0) 26%,rgba(5,5,10,0) 42%,rgba(5,5,10,.78));pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(5,5,10,.3),rgba(5,5,10,0) 26%,rgba(5,5,10,0) 48%,rgba(14,14,14,.75) 80%,#0E0E0E 100%);pointer-events:none}
 .hero-copy{position:absolute;z-index:2;left:var(--gut);right:var(--gut);bottom:clamp(26px,6vh,64px);max-width:760px}
 .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
 .hero .eyebrow{color:rgba(236,230,218,.82)}
@@ -667,7 +667,7 @@ body{letter-spacing:-.005em}
 .gx2 .gx-in{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden}
 .gx2 .gx-media{clip-path:none;z-index:0}
 .gx2 .gx-media img{transform:none;filter:none}
-.gx2 .gx-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,10,.72),rgba(8,8,10,.15) 55%,rgba(8,8,10,.35)),linear-gradient(rgba(8,8,10,0) 50%,rgba(8,8,10,.7));pointer-events:none}
+.gx2 .gx-media::after{content:"";position:absolute;inset:0;background:linear-gradient(#0E0E0E,rgba(14,14,14,.6) 14%,rgba(14,14,14,0) 34%),linear-gradient(90deg,rgba(8,8,10,.72),rgba(8,8,10,.15) 55%,rgba(8,8,10,.35)),linear-gradient(rgba(8,8,10,0) 50%,rgba(8,8,10,.7));pointer-events:none}
 .gx-txt{position:absolute;z-index:2;left:var(--gut);bottom:clamp(120px,18vh,190px);max-width:min(760px,90vw);color:var(--cream)}
 .gx-eye{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:rgba(236,230,218,.75);margin-bottom:18px}
 .gx-tt{font:600 clamp(42px,6.6vw,112px)/.92 var(--disp);letter-spacing:-.05em;text-transform:none}
@@ -685,7 +685,7 @@ body{letter-spacing:-.005em}
 }
 @media (max-width:700px){
   .gx2 .gx-media img{object-position:50% 40%}
-  .gx2 .gx-media::after{background:linear-gradient(rgba(8,8,10,.1) 30%,rgba(8,8,10,.85) 80%)}
+  .gx2 .gx-media::after{background:linear-gradient(#0E0E0E,rgba(14,14,14,0) 26%),linear-gradient(rgba(8,8,10,.1) 30%,rgba(8,8,10,.85) 80%)}
   .gx-txt{bottom:150px;right:var(--gut)}
   .gx-tt{font-size:clamp(38px,11vw,60px)}
 }
@@ -833,17 +833,6 @@ function viewHome(){
         <span class="pv-live"><i aria-hidden="true"></i>${CONFIG.preventaAbierta?'Preventa abierta':'Preventa muy pronto'}</span>
         <div class="gx-cta"><span class="gx-price">${money(CONFIG.precio)}</span><a class="btn pv-btn" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a></div>
       </div>
-    </div>
-  </section>
-
-  <section id="coleccion" class="shop" aria-label="Productos">
-    <div class="shop-h rv"><span>Shop · Drop SANS</span><a href="#/#polerones" data-go="polerones">Ver todo</a></div>
-    <div class="shop-row">
-      ${ORDER.flatMap(c=>M[c].mockups.map(m=>({c,m}))).map((x,i)=>`
-      <a class="si rv" style="transition-delay:${i*45}ms" href="#/p/${x.c}" aria-label="Drop SANS ${COLORS[x.c].name}, ${x.m.label}">
-        <span class="pb"><img src="${x.m.src}" width="${x.m.w}" height="${x.m.h}" alt="" loading="lazy"></span>
-        <span class="t">SANS · ${COLORS[x.c].name}<small>${x.m.label==='frente'?'Frente':'Espalda'} · ${money(CONFIG.precio)}</small></span>
-      </a>`).join('')}
     </div>
   </section>
 
@@ -1326,7 +1315,7 @@ function updateBadge(){const b=document.getElementById('badge'),n=cartCount();b.
 function renderCart(){
   const body=document.getElementById('cartBody'), foot=document.getElementById('cartFoot');
   if(!cart.length){
-    body.innerHTML=`<div class="cart-empty"><h3>Tu carrito está vacío</h3><p>${CONFIG.preventaAbierta?'Elige un color y una talla para empezar.':'La preventa del Drop SANS abre prochainement.'}</p><div class="cta-row"><a class="btn solid" href="#/#coleccion" data-go="coleccion">Ver los colores</a></div></div>`;
+    body.innerHTML=`<div class="cart-empty"><h3>Tu carrito está vacío</h3><p>${CONFIG.preventaAbierta?'Elige un color y una talla para empezar.':'La preventa del Drop SANS abre prochainement.'}</p><div class="cta-row"><a class="btn solid" href="#/#polerones" data-go="polerones">Ver los colores</a></div></div>`;
     foot.hidden=true; return;
   }
   body.innerHTML=cart.map((i,k)=>`<div class="ci"><img src="${M[i.color].photos[0].src}" alt=""><div><b>Drop SANS</b><small>${COLORS[i.color].name} · Talla ${i.size}</small><div class="qty"><button data-q="-1" data-k="${k}" aria-label="Menos">−</button><span>${i.qty}</span><button data-q="1" data-k="${k}" aria-label="Más">+</button></div></div><div style="text-align:right">${money(CONFIG.precio*i.qty)}<br><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join('');
