@@ -205,10 +205,69 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
 .note{font-size:12px;color:var(--mute);margin-top:4px}
 .more{padding-bottom:20px}
 
+/* ---------- fila de modelos recortados ---------- */
+.cutrow{display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(12px,2vw,32px)}
+.cut{flex:0 1 auto;display:flex;flex-direction:column;align-items:center;gap:16px}
+.cut .fig{display:block;height:clamp(340px,62vh,640px)}
+.cut img{height:100%;width:auto;transition:transform .8s var(--ease)}
+.cut:hover img,.cut:focus-visible img{transform:translateY(-10px)}
+.cut .cap{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.cut .cap small{color:var(--mute);letter-spacing:.04em;text-transform:none;font-size:12px}
+
+/* ---------- collage ---------- */
+.look{padding-top:clamp(40px,6vw,90px);padding-bottom:clamp(30px,5vw,70px)}
+.look .eyebrow{margin-bottom:clamp(20px,3vw,40px);text-align:center}
+.lk{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(10px,1.6vw,24px);row-gap:clamp(24px,5vw,80px);align-items:start}
+.lk figure{overflow:hidden;background:var(--cream-2);position:relative}
+.lk img{width:100%;height:100%;object-fit:cover;transform:translate3d(0,var(--ty,0px),0) scale(1.14);will-change:transform}
+.lk .a{grid-column:1/4;aspect-ratio:2/3}
+.lk .b{grid-column:5/9;aspect-ratio:3/4;margin-top:clamp(40px,8vw,130px)}
+.lk .c{grid-column:10/13;aspect-ratio:2/3;margin-top:clamp(10px,3vw,50px)}
+.lk .d{grid-column:2/5;aspect-ratio:3/4}
+.lk .e{grid-column:6/8;aspect-ratio:2/3;margin-top:clamp(40px,9vw,150px)}
+.lk .f{grid-column:9/13;aspect-ratio:4/5}
+
+/* ---------- ficha de producto (estilo video) ---------- */
+.pdp2{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);gap:clamp(20px,3.4vw,56px);padding:0 var(--gut);align-items:start}
+.pdp2 .strip{padding:0}
+.strip-wrap,.buybox{min-width:0}
+.pdp2 .strip figure{height:min(74vh,800px)}
+.buybox{position:sticky;top:84px;padding-bottom:30px}
+.buybox h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,3.6vw,52px);line-height:.98;margin-top:8px}
+.buybox h1 em{font-style:italic}
+.buybox .price{font-size:16px}
+.buybox .lbl{margin:20px 0 8px}
+.buybox .buy{margin-top:20px;max-width:none}
+.buybox .btn{padding:14px 20px}
+.acc{border-top:1px solid var(--line);margin-top:22px}
+.acc+.acc{margin-top:0}
+.acc summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:16px;line-height:1}
+.acc[open] summary::after{content:"\2212"}
+.acc .in{padding-bottom:16px;font-size:14px}
+.acc .in p{margin-bottom:10px;color:#2b2923}
+.acc .in ul{list-style:none;margin-top:8px}
+.acc .in li{padding:8px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font-size:13px}
+.acc .in li span:first-child{color:var(--mute);flex:none}
+.acc .in li span:last-child{text-align:right}
+.acc table{font-size:13px}
+.more{padding-top:clamp(50px,8vw,110px)}
+
 @media (max-width:900px){
   .grid4{grid-template-columns:repeat(2,1fr)}
   .facts{grid-template-columns:repeat(2,1fr)}
   .info{grid-template-columns:1fr}
+  .pdp2{grid-template-columns:minmax(0,1fr)}
+  .pdp2 .strip{margin:0 calc(-1*var(--gut));padding:0 var(--gut)}
+  .pdp2 .strip figure{height:min(62vh,560px)}
+  .buybox{position:static}
+  .cutrow{overflow-x:auto;justify-content:flex-start;scroll-snap-type:x proximity;margin:0 calc(-1*var(--gut));padding:0 var(--gut) 8px;scrollbar-width:none}
+  .cutrow::-webkit-scrollbar{display:none}
+  .cut{scroll-snap-align:start;flex:none}
+  .cut .fig{height:min(52vh,460px)}
+  .lk .a{grid-column:1/6}.lk .b{grid-column:7/13}.lk .c{grid-column:1/6;margin-top:0}
+  .lk .d{grid-column:7/13}.lk .e{grid-column:1/6;margin-top:0}.lk .f{grid-column:7/13}
 }
 @media (max-width:640px){
   .hero img{object-position:58% 30%}
@@ -286,6 +345,28 @@ let currentColor = 'negro';
 const img = (o, alt, extra='') => `<img src="${o.src}" width="${o.w}" height="${o.h}" alt="${alt}" ${extra}>`;
 const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
 
+/* ===== modelos recortados ===== */
+const CUT = {negro:[382,1143], marino:[469,1355], gris:[855,1358], cafe:[674,1399]};
+const LOOK = [ // [clase, [color, foto], velocidad]
+  ['a',['negro',3],.07], ['b',['cafe',1],-.05], ['c',['marino',1],.06],
+  ['d',['gris',1],-.06], ['e',['negro',4],.08], ['f',['marino',2],-.04]
+];
+function cutRow(list){
+  return `<div class="cutrow">${list.map((c,i)=>`
+    <a class="cut rv" style="transition-delay:${i*80}ms" href="#/p/${c}" aria-label="Ver AN-H03 Paneles ${COLORS[c].name}">
+      <span class="fig"><img src="assets/cut-${c}.webp" width="${CUT[c][0]}" height="${CUT[c][1]}" alt="Modelo con el polerón AN-H03 ${COLORS[c].name}" loading="lazy"></span>
+      <span class="cap"><b>${COLORS[c].name}</b><small>${money(CONFIG.precio)}</small></span>
+    </a>`).join('')}</div>`;
+}
+function startCollage(){
+  if(reduce) return;
+  const fs=[...app.querySelectorAll('.lk figure')]; let t=false;
+  const run=()=>{t=false;const vh=innerHeight;fs.forEach(f=>{const r=f.getBoundingClientRect();if(r.bottom<-100||r.top>vh+100)return;const c=r.top+r.height/2-vh/2;const v=Math.max(-45,Math.min(45,-c*parseFloat(f.dataset.sp)));f.firstElementChild.style.setProperty('--ty',Math.round(v)+'px');});};
+  const on=()=>{if(!t){t=true;requestAnimationFrame(run);}};
+  addEventListener('scroll',on,{passive:true});addEventListener('resize',on);on();
+  cleanup.push(()=>{removeEventListener('scroll',on);removeEventListener('resize',on);});
+}
+
 /* ===== Portada ===== */
 function viewHome(){
   document.title = 'ATELIER NOIR™ — Drop 01';
@@ -295,19 +376,16 @@ function viewHome(){
     <h1 class="sr">ATELIER NOIR — Drop 01, polerón AN-H03 Paneles</h1>
   </section>
 
+  <section id="lookbook" class="look" aria-label="Lookbook">
+    <div class="eyebrow rv">Lookbook · Drop 01</div>
+    <div class="lk">
+      ${LOOK.map(l=>`<figure class="${l[0]} rv" data-sp="${l[2]}">${img(M[l[1][0]].photos[l[1][1]],'Modelos con el polerón AN-H03','loading="lazy"')}</figure>`).join('')}
+    </div>
+  </section>
+
   <section id="coleccion" aria-label="Colores">
     <div class="sec-h rv"><h2>AN-H03 Paneles</h2><span>4 colores · M — L — XL</span></div>
-    <div class="grid4">
-      ${ORDER.map((c,i)=>`
-      <a class="card rv" style="transition-delay:${i*70}ms" href="#/p/${c}" aria-label="Ver AN-H03 ${COLORS[c].name}">
-        <div class="ph">
-          <span class="tag">Drop 01</span>
-          ${img(M[c].photos[0],`AN-H03 Paneles ${COLORS[c].name}`,'loading="lazy"')}
-          ${img(M[c].photos[1]||M[c].photos[0],'','loading="lazy" aria-hidden="true"')}
-        </div>
-        <div class="cap"><span><b>${COLORS[c].name}</b><br><small>${COLORS[c].fr}</small></span><span>${money(CONFIG.precio)}</span></div>
-      </a>`).join('')}
-    </div>
+    ${cutRow(ORDER)}
   </section>
 
   <section id="detalles" aria-label="Detalles">
@@ -326,7 +404,7 @@ function viewHome(){
     <p class="rv">${CONFIG.preventaAbierta?'La preventa del drop 01 está abierta.':'La preventa del drop 01 abrirá aquí mismo. Escríbenos por Instagram y te avisamos primero.'}</p>
     <div class="cta-row rv"><a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a></div>
   </section>`;
-  startParallax(); startReveal();
+  startParallax(); startReveal(); startCollage();
 }
 
 /* ===== Producto ===== */
@@ -344,20 +422,20 @@ function viewProduct(c){
   app.innerHTML = `
   <div class="pdp">
     <div class="crumb"><a href="#/">← Drop 01</a><span>AN-H03 Paneles</span></div>
-    <div class="strip-wrap">
-      <div class="strip" id="strip" tabindex="0" aria-label="Fotos del producto">
-        ${items.map((it,i)=>`<figure class="${it.cls}">${img(it.o,it.alt,i<2?'fetchpriority="high"':'loading="lazy"')}${it.cap?`<figcaption>${it.cap}</figcaption>`:''}</figure>`).join('')}
+    <div class="pdp2">
+      <div class="strip-wrap">
+        <div class="strip" id="strip" tabindex="0" aria-label="Fotos del producto">
+          ${items.map((it,i)=>`<figure class="${it.cls}">${img(it.o,it.alt,i<2?'fetchpriority="high"':'loading="lazy"')}${it.cap?`<figcaption>${it.cap}</figcaption>`:''}</figure>`).join('')}
+        </div>
+        <div class="ctrl" style="padding-left:0;padding-right:0">
+          <button id="prev" aria-label="Anterior">←</button>
+          <span class="n" id="count">01 / ${String(total).padStart(2,'0')}</span>
+          <div class="bar"><i id="prog"></i></div>
+          <button id="next" aria-label="Siguiente">→</button>
+        </div>
       </div>
-      <div class="ctrl">
-        <button id="prev" aria-label="Anterior">←</button>
-        <span class="n" id="count">01 / ${String(total).padStart(2,'0')}</span>
-        <div class="bar"><i id="prog"></i></div>
-        <button id="next" aria-label="Siguiente">→</button>
-      </div>
-    </div>
 
-    <div class="info">
-      <div>
+      <aside class="buybox">
         <div class="eyebrow">Drop 01 · AN-H03</div>
         <h1>Paneles,<br><em>${col.name.toLowerCase()}</em></h1>
         <div class="price">${money(CONFIG.precio)} <small>CLP · ${CONFIG.preventaAbierta?'Preventa':'Prochainement'}</small></div>
@@ -378,27 +456,24 @@ function viewProduct(c){
             ? `<button class="btn solid" id="buy" type="button">Précommande · Añadir al carrito</button><span class="note">Pides por Instagram desde el carrito y el pago se coordina ahí.</span>`
             : `<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame cuando abra</a><span class="note">Prochainement. Escríbenos por Instagram y te avisamos primero.</span>`}
         </div>
-      </div>
 
-      <div class="desc">
-        <p>Polerón de felpa pesada, corte relajado y hombro caído. Dos líneas horizontales con borde sin terminar al frente y en la espalda, y una costura vertical abierta en cada manga.</p>
-        <ul>
-          <li><span>Tela</span><span>100% algodón · 550 g/m² · perchado</span></li>
-          <li><span>Efecto</span><span>Desteñido, sin rotos ni lijado</span></li>
-          <li><span>Capucha</span><span>Capa simple, sin cordones</span></li>
-          <li><span>Detalles</span><span>“ATELIER” bordado · “SANS” en relieve</span></li>
-          <li><span>Puños y pretina</span><span>Rib 1x1 grueso</span></li>
-        </ul>
-        <div class="lbl" style="margin-top:22px">Medidas (cm, prenda plana)</div>
-        <table id="tbl"><thead><tr><th>Talla</th><th>Pecho</th><th>Largo</th><th>Manga</th></tr></thead>
-          <tbody>${Object.entries(SIZES).map(([s,v])=>`<tr data-s="${s}"><td>${s}</td><td>${v.pecho}</td><td>${v.largo}</td><td>${v.manga}</td></tr>`).join('')}</tbody></table>
-        <p class="note" style="margin-top:10px">Tolerancia ± 1 cm.</p>
-      </div>
+        <details class="acc" open><summary>Detalles</summary><div class="in">
+          <p>Polerón de felpa pesada, corte relajado y hombro caído. Dos líneas horizontales con borde sin terminar al frente y en la espalda, y una costura vertical abierta en cada manga.</p>
+          <ul>
+            <li><span>Tela</span><span>100% algodón · 550 g/m²</span></li>
+            <li><span>Efecto</span><span>Desteñido, sin rotos ni lijado</span></li>
+            <li><span>Capucha</span><span>Capa simple, sin cordones</span></li>
+            <li><span>Detalles</span><span>“ATELIER” bordado · “SANS” en relieve</span></li>
+            <li><span>Puños y pretina</span><span>Rib 1x1 grueso</span></li>
+          </ul></div></details>
+        <details class="acc"><summary>Medidas</summary><div class="in">
+          <table id="tbl"><thead><tr><th>Talla</th><th>Pecho</th><th>Largo</th><th>Manga</th></tr></thead>
+            <tbody>${Object.entries(SIZES).map(([s,v])=>`<tr data-s="${s}"><td>${s}</td><td>${v.pecho}</td><td>${v.largo}</td><td>${v.manga}</td></tr>`).join('')}</tbody></table>
+          <p class="note" style="margin-top:10px">Prenda plana, en cm. Tolerancia ± 1 cm.</p></div></details>
+      </aside>
     </div>
     <section class="more"><div class="sec-h"><h2>Otros colores</h2><span>AN-H03</span></div>
-      <div class="grid4">
-        ${others.map(o=>`<a class="card" href="#/p/${o}"><div class="ph">${img(M[o].photos[0],`AN-H03 ${COLORS[o].name}`,'loading="lazy"')}${img(M[o].photos[1]||M[o].photos[0],'','loading="lazy" aria-hidden="true"')}</div><div class="cap"><span><b>${COLORS[o].name}</b></span><span>${money(CONFIG.precio)}</span></div></a>`).join('')}
-      </div>
+      ${cutRow(others)}
     </section>
   </div>`;
   initStrip(total); initSizes();
