@@ -567,8 +567,8 @@ body{letter-spacing:-.005em}
     </div>
     <div class="ft-col">
       <b class="ft-b">Précommande</b>
-      <p>Prochainement. Escríbenos por Instagram y te avisamos primero.</p>
-      <a class="btn ghost ft-btn" href="https://ig.me/m/ateliernoir.cl" target="_blank" rel="noopener">Avísame</a>
+      <p>Preventa activa. Elige tu color y talla, y haz tu pedido por Instagram desde el carrito.</p>
+      <a class="btn ghost ft-btn" href="#/#polerones" data-go="polerones">Reservar el mío</a>
     </div>
   </div>
   <nav class="ft-links" aria-label="Pie de página">
@@ -582,7 +582,7 @@ body{letter-spacing:-.005em}
 <script>
 /* ===== Ajustes fáciles ===== */
 const CONFIG = {
-  preventaAbierta: false,        // cambia a true cuando abras la preventa
+  preventaAbierta: true,         // preventa activa (false para cerrarla)
   precio: 54990,                 // precio de ejemplo: edítalo
   ig: 'ateliernoir.cl'
 };
@@ -716,9 +716,9 @@ function viewHome(){
 
   <section id="preventa" class="soon" aria-label="Preventa">
     <div class="eyebrow rv">Preventa</div>
-    <h2 class="rv">Prochainement,<br><em>más cerca de lo que creen</em></h2>
+    <h2 class="rv">${CONFIG.preventaAbierta?'Preventa activa,<br><em>reserva tu SANS</em>':'Prochainement,<br><em>más cerca de lo que creen</em>'}</h2>
     <p class="rv">${CONFIG.preventaAbierta?'La preventa del Drop SANS está abierta.':'La preventa del Drop SANS abrirá aquí mismo. Escríbenos por Instagram y te avisamos primero.'}</p>
-    <div class="cta-row rv"><a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a></div>
+    <div class="cta-row rv">${CONFIG.preventaAbierta?'<a class="btn solid" href="#/#polerones" data-go="polerones">Reservar el mío</a>':`<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a>`}</div>
   </section>`;
   startParallax(); startReveal(); startCollage();
 }
