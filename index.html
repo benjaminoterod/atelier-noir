@@ -690,6 +690,12 @@ body{letter-spacing:-.005em}
   .gx-tt{font-size:clamp(38px,11vw,60px)}
 }
 
+/* texto de presentacion antes de los banners */
+.intro2{text-align:center;padding:clamp(90px,11vw,170px) var(--gut) clamp(40px,5vw,72px)}
+.intro2 h2{font:600 clamp(34px,4.6vw,68px)/1 var(--disp);letter-spacing:-.045em;margin:14px 0 14px}
+.intro2 h2 span{color:var(--mute)}
+.i2-sub{color:#3a372f;font-size:clamp(14px,1.1vw,16px)}
+
 </style>
 </head>
 <body>
@@ -834,6 +840,12 @@ function viewHome(){
         <div class="gx-cta"><span class="gx-price">${money(CONFIG.precio)}</span><a class="btn pv-btn" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a></div>
       </div>
     </div>
+  </section>
+
+  <section class="intro2" aria-label="Homme y Femme">
+    <p class="eyebrow rv">Drop SANS · Homme &amp; Femme</p>
+    <h2 class="rv">Pour lui. <span>Pour elle.</span></h2>
+    <p class="i2-sub rv">Un mismo polerón, dos formas de llevarlo.</p>
   </section>
 
   <section class="duo" aria-label="Homme y Femme" style="padding-top:0;padding-bottom:0">
