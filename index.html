@@ -795,11 +795,7 @@ function viewHome(){
 
   <section class="gx" aria-label="Drop SANS">
     <div class="gx-in">
-      <div class="gx-media"><img src="assets/grafiti.webp?v=2" width="3840" height="2146" alt="Modelo con el polerón SANS negro y la capucha puesta frente a un muro con grafitis" decoding="async"></div>
-      <svg class="gx-ring ring-b" viewBox="-100 -100 200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M-99 0 A99 99 0 0 1 99 0"/></svg>
-      ${ORDER.map(c=>`<span class="ob" aria-hidden="true"><img class="obf" src="assets/ob-${c}-frente.webp" alt="" decoding="async"><img class="obb" src="assets/ob-${c}-espalda.webp" alt="" decoding="async"></span>`).join('')}
-      <div class="gx-media gx-fgm"><img src="assets/grafiti-fg.webp" width="3840" height="2146" alt="" aria-hidden="true" decoding="async"></div>
-      <svg class="gx-ring ring-f" viewBox="-100 -100 200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M99 0 A99 99 0 0 1 -99 0"/></svg>
+      <div class="gx-media"><img src="assets/orbita.webp" width="3840" height="2161" alt="Modelo con el polerón SANS negro frente a un muro con grafitis, con los polerones gris, azul marino, negro y café girando a su alrededor" decoding="async"></div>
       <h2 class="sr">Drop SANS</h2>
       <div class="gx-bot">
         <span class="pv-live"><i aria-hidden="true"></i>${CONFIG.preventaAbierta?'Preventa abierta':'Preventa muy pronto'}</span>
@@ -1166,7 +1162,7 @@ function startGX(){
   function frame(n){
     raf=requestAnimationFrame(frame);
     const dt=Math.min(.1,(n-last)/1000); last=n;
-    if(!visible) return;
+    if(!visible||!O.length) return;
     if(!reduce) theta+=dt*(.55+boost); boost*=Math.pow(.18,dt);
     const W=innerWidth, H=innerHeight, mob=W<700;
     const cx=W*.5, cy=H*(mob?.55:.6);
@@ -1180,7 +1176,7 @@ function startGX(){
       o.style.zIndex=d>0?3:1; o.classList.toggle('back',d<0);
       o.style.opacity=kO.toFixed(3);
     });
-    [RB,RF].forEach(R=>{ R.style.width=(rx*2).toFixed(1)+'px'; R.style.height=(ry*2).toFixed(1)+'px';
+    if(RB&&RF) [RB,RF].forEach(R=>{ R.style.width=(rx*2).toFixed(1)+'px'; R.style.height=(ry*2).toFixed(1)+'px';
       R.style.transform=`translate3d(${(cx-rx).toFixed(1)}px,${(cy-ry).toFixed(1)}px,0) rotate(${(TILT*180/Math.PI).toFixed(2)}deg)`;
       R.style.opacity=(kO*.9).toFixed(3); R.style.strokeDashoffset=(-theta*60).toFixed(1); });
   }
