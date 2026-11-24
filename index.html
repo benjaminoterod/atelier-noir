@@ -583,6 +583,21 @@ body{letter-spacing:-.005em}
   @keyframes blurin{from{opacity:0;filter:blur(10px);transform:translateY(10px)}to{opacity:1;filter:none;transform:none}}
 }
 
+/* ATELIER detras de la modelo */
+.h-bg img{z-index:0}
+.h-fg img{z-index:2}
+.hero::after{z-index:3}
+.h-word{position:absolute;z-index:1;left:0;right:0;top:9%;display:flex;justify-content:center;pointer-events:none;will-change:transform}
+.h-word span{font:700 22.5vw/.78 var(--disp);letter-spacing:-.065em;text-transform:uppercase;color:var(--cream);margin-left:-.05em}
+@media (prefers-reduced-motion:no-preference){
+  .h-word span{display:inline-block;animation:wordin 1.8s var(--ease) .25s both}
+  @keyframes wordin{from{opacity:0;filter:blur(18px);letter-spacing:.04em}to{opacity:1;filter:none;letter-spacing:-.065em}}
+}
+@media (max-width:640px){
+  .h-word{top:11%;left:auto;right:1vw;bottom:auto;justify-content:flex-end}
+  .h-word span{writing-mode:vertical-rl;font-size:27vw;line-height:.8;margin:0}
+}
+
 </style>
 </head>
 <body>
@@ -709,7 +724,9 @@ function viewHome(){
   document.title = 'ATELIER NOIR™ — Drop SANS';
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
-    <picture><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
+    <picture class="h-bg"><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
+    <div class="h-word" aria-hidden="true"><span>ATELIER</span></div>
+    <picture class="h-fg"><source media="(max-width:640px)" srcset="assets/portada-m-fg.webp"><img src="assets/portada-fg.webp" width="3840" height="2166" alt="" aria-hidden="true" fetchpriority="high"></picture>
     <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
   </section>
 
@@ -1113,8 +1130,8 @@ function startReveal(){
 }
 function startParallax(){
   if(reduce) return;
-  const im=app.querySelector('.hero img'); if(!im) return; let t=false;
-  const run=()=>{t=false;const y=Math.min(scrollY,innerHeight);im.style.transform=`translate3d(0,${Math.round(y*.18)}px,0)`;};
+  const bg=app.querySelector('.h-bg img'), fg=app.querySelector('.h-fg img'), wd=app.querySelector('.h-word'); if(!bg) return; let t=false;
+  const run=()=>{t=false;const y=Math.min(scrollY,innerHeight);bg.style.transform=`translate3d(0,${Math.round(y*.32)}px,0)`; wd.style.transform=`translate3d(0,${Math.round(y*.2)}px,0)`; fg.style.transform=`translate3d(0,${Math.round(y*.1)}px,0)`;};
   const on=()=>{if(!t){t=true;requestAnimationFrame(run);}};
   window.addEventListener('scroll',on,{passive:true}); cleanup.push(()=>window.removeEventListener('scroll',on));
 }
