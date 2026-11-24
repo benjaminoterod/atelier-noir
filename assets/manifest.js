@@ -8,51 +8,51 @@ window.MANIFEST={
    },
    {
     "src": "assets/fotos/negro-1.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    },
    {
     "src": "assets/fotos/negro-2.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    },
    {
     "src": "assets/fotos/negro-3.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    },
    {
     "src": "assets/fotos/negro-4.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    },
    {
     "src": "assets/fotos/negro-5.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    },
    {
     "src": "assets/fotos/negro-6.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    },
    {
     "src": "assets/fotos/negro-7.webp",
-    "w": 1000,
-    "h": 1500
+    "w": 1333,
+    "h": 2000
    }
   ],
   "mockups": [
    {
     "src": "assets/negro-frente.webp",
-    "w": 786,
-    "h": 796,
+    "w": 1582,
+    "h": 1600,
     "label": "frente"
    },
    {
     "src": "assets/negro-espalda.webp",
-    "w": 780,
-    "h": 795,
+    "w": 1570,
+    "h": 1600,
     "label": "espalda"
    }
   ]
@@ -61,36 +61,36 @@ window.MANIFEST={
   "photos": [
    {
     "src": "assets/fotos/marino-1.webp",
-    "w": 1072,
-    "h": 1467
+    "w": 1461,
+    "h": 2000
    },
    {
     "src": "assets/fotos/marino-2.webp",
-    "w": 1072,
-    "h": 1467
+    "w": 1461,
+    "h": 2000
    },
    {
     "src": "assets/fotos/marino-3.webp",
-    "w": 1072,
-    "h": 1467
+    "w": 1461,
+    "h": 2000
    },
    {
     "src": "assets/fotos/marino-4.webp",
-    "w": 1500,
-    "h": 846
+    "w": 2000,
+    "h": 1128
    }
   ],
   "mockups": [
    {
     "src": "assets/marino-frente.webp",
-    "w": 787,
-    "h": 799,
+    "w": 1576,
+    "h": 1600,
     "label": "frente"
    },
    {
     "src": "assets/marino-espalda.webp",
-    "w": 781,
-    "h": 798,
+    "w": 1566,
+    "h": 1600,
     "label": "espalda"
    }
   ]
@@ -104,26 +104,26 @@ window.MANIFEST={
    },
    {
     "src": "assets/fotos/gris-1.webp",
-    "w": 1072,
-    "h": 1467
+    "w": 1461,
+    "h": 2000
    },
    {
     "src": "assets/fotos/gris-2.webp",
-    "w": 1072,
-    "h": 1467
+    "w": 1461,
+    "h": 2000
    }
   ],
   "mockups": [
    {
     "src": "assets/gris-frente.webp",
-    "w": 788,
-    "h": 798,
+    "w": 1580,
+    "h": 1600,
     "label": "frente"
    },
    {
     "src": "assets/gris-espalda.webp",
-    "w": 782,
-    "h": 798,
+    "w": 1568,
+    "h": 1600,
     "label": "espalda"
    }
   ]
@@ -132,8 +132,8 @@ window.MANIFEST={
   "photos": [
    {
     "src": "assets/fotos/cafe-1.webp",
-    "w": 1072,
-    "h": 1467
+    "w": 1461,
+    "h": 2000
    },
    {
     "src": "assets/fotos/cafe-4.webp",
@@ -142,26 +142,26 @@ window.MANIFEST={
    },
    {
     "src": "assets/fotos/cafe-2.webp",
-    "w": 1086,
-    "h": 1448
+    "w": 1500,
+    "h": 2000
    },
    {
     "src": "assets/fotos/cafe-3.webp",
-    "w": 1086,
-    "h": 1448
+    "w": 1500,
+    "h": 2000
    }
   ],
   "mockups": [
    {
     "src": "assets/cafe-frente.webp",
-    "w": 782,
-    "h": 797,
+    "w": 1571,
+    "h": 1600,
     "label": "frente"
    },
    {
     "src": "assets/cafe-espalda.webp",
-    "w": 780,
-    "h": 798,
+    "w": 1563,
+    "h": 1600,
     "label": "espalda"
    }
   ]
