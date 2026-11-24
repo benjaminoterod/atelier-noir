@@ -95,7 +95,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ---------- hero ---------- */
 .hero{position:relative;height:100vh;height:100svh;min-height:540px;overflow:hidden;color:var(--cream);background:#0b0b10}
-.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 35%;will-change:transform}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 35%;will-change:transform}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(5,5,10,.3),rgba(5,5,10,0) 26%,rgba(5,5,10,0) 42%,rgba(5,5,10,.78));pointer-events:none}
 .hero-copy{position:absolute;z-index:2;left:var(--gut);right:var(--gut);bottom:clamp(26px,6vh,64px);max-width:760px}
 .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
@@ -118,7 +118,7 @@ section{scroll-margin-top:64px}
 
 /* intro */
 @media (prefers-reduced-motion:no-preference){
-  .hero>img{animation:fadein 1.4s var(--ease) both}
+  .hero img{animation:fadein 1.4s var(--ease) both}
   @keyframes fadein{from{opacity:0}to{opacity:1}}
   .hero-copy{opacity:0;animation:rise .9s var(--ease) .5s forwards}
   @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
@@ -211,7 +211,7 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
   .info{grid-template-columns:1fr}
 }
 @media (max-width:640px){
-  .hero>img{object-position:58% 30%}
+  .hero img{object-position:58% 30%}
   .strip figure{height:62vh}
   .facts{grid-template-columns:1fr}
   .sec-h span{display:none}
@@ -291,7 +291,7 @@ function viewHome(){
   document.title = 'ATELIER NOIR™ — Drop 01';
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
-    <img src="assets/portada.webp" width="3340" height="1884" alt="Modelo con la capucha del polerón AN-H03 puesta, sobre un cielo al atardecer" fetchpriority="high">
+    <picture><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón AN-H03 puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
     <h1 class="sr">ATELIER NOIR — Drop 01, polerón AN-H03 Paneles</h1>
   </section>
 
@@ -448,7 +448,7 @@ function startReveal(){
 }
 function startParallax(){
   if(reduce) return;
-  const im=app.querySelector('.hero>img'); if(!im) return; let t=false;
+  const im=app.querySelector('.hero img'); if(!im) return; let t=false;
   const run=()=>{t=false;const y=Math.min(scrollY,innerHeight);im.style.transform=`translate3d(0,${Math.round(y*.18)}px,0)`;};
   const on=()=>{if(!t){t=true;requestAnimationFrame(run);}};
   window.addEventListener('scroll',on,{passive:true}); cleanup.push(()=>window.removeEventListener('scroll',on));
