@@ -563,6 +563,26 @@ body{letter-spacing:-.005em}
 .lb-tiles i{background:var(--ink);transform:scale(0);transition:transform .42s cubic-bezier(.75,0,.25,1) var(--d,0s)}
 .lb-tiles.cover i{transform:scale(1.04)}
 
+/* ===== bloques y difuminados ===== */
+.px{position:fixed;inset:0;z-index:97;display:grid;pointer-events:none}
+.px i{background:var(--cream);transform:scale(0);transition:transform .34s cubic-bezier(.7,0,.3,1) var(--d,0s)}
+.px.on i{transform:scale(1.03)}
+.tl i{transition:transform .5s cubic-bezier(.7,0,.3,1) var(--d,0s)}
+.lb-tiles i{background:var(--cream)}
+#lbImg{filter:blur(16px);transition:opacity .6s var(--ease),transform .8s var(--ease),filter .9s var(--ease)}
+#lbImg.on{filter:none}
+@media (prefers-reduced-motion:no-preference){
+  #app.blurout{filter:blur(10px);opacity:.5;transition:filter .55s var(--ease),opacity .55s var(--ease)}
+  #app.enter{animation:pgin2 .9s var(--ease) both}
+  @keyframes pgin2{from{opacity:0;filter:blur(12px)}to{opacity:1;filter:none}}
+  .rv{opacity:0;filter:blur(12px);transform:translateY(16px);transition:opacity 1s var(--ease),filter 1.1s var(--ease),transform 1s var(--ease)}
+  .rv.in{opacity:1;filter:none;transform:none}
+  img.fade{opacity:0;filter:blur(18px);transition:opacity .9s var(--ease),filter 1.2s var(--ease)}
+  img.fade.ok{opacity:1;filter:none}
+  .buybox>*{animation:blurin .9s var(--ease) both}
+  @keyframes blurin{from{opacity:0;filter:blur(10px);transform:translateY(10px)}to{opacity:1;filter:none;transform:none}}
+}
+
 </style>
 </head>
 <body>
@@ -608,6 +628,8 @@ body{letter-spacing:-.005em}
   <button class="ib lb-x" type="button" aria-label="Cerrar foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   <div class="lb-c" id="lbC"></div>
 </div>
+
+<div class="px" id="px" aria-hidden="true"></div>
 
 <main id="app" tabindex="-1"></main>
 
@@ -918,7 +940,7 @@ function viewProduct(c){
       ${cutRow(others)}
     </section>
   </div>`;
-  initStrip(total); initSizes();
+  initStrip(total); initSizes(); startTiles();
 }
 
 function initSizes(){
@@ -983,6 +1005,11 @@ function initStrip(total){
   cleanup.push(()=>{cancelAnimationFrame(raf);removeEventListener('pointermove',move);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);removeEventListener('resize',onR);io&&io.disconnect();});
 }
 
+/* retraso por bloque: agrupa celdas en rectangulos al azar para que se armen/desarmen en bloques */
+function blockDelay(spread){
+  const map={}, bw=2+((Math.random()*2)|0);
+  return (x,y)=>{ const k=((x+(((y/2)|0)%2?1:0))/bw|0)+'_'+((y/2)|0); if(!(k in map)) map[k]=Math.random(); return ((map[k]*.78+Math.random()*.22)*spread).toFixed(3)+'s'; };
+}
 /* ===== visor de fotos ===== */
 const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbC=document.getElementById('lbC');
 let lbOpen=false, lbList=[], lbI=0, lbBack=null, lbToken=0;
@@ -991,7 +1018,7 @@ lbT.innerHTML='<i></i>'.repeat(TC*TR);
 const lbCells=[...lbT.children];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function placeTiles(){ const r=lbImg.getBoundingClientRect(); if(!r.width) return; Object.assign(lbT.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'}); }
-function shuffleTiles(){ lbCells.forEach((c,k)=>{ const x=k%TC, y=(k/TC)|0; c.style.setProperty('--d',(((x+y)/(TC+TR))*.22+Math.random()*.16).toFixed(3)+'s'); }); }
+function shuffleTiles(){ const bd=blockDelay(.42); lbCells.forEach((c,k)=>{ c.style.setProperty('--d',bd(k%TC,(k/TC)|0)); }); }
 async function lbShow(i,nav){
   lbI=(i+lbList.length)%lbList.length; const it=lbList[lbI], tok=++lbToken;
   lbC.textContent=String(lbI+1).padStart(2,'0')+' / '+String(lbList.length).padStart(2,'0');
@@ -1058,13 +1085,13 @@ function startPV(){
 /* ===== cuadritos que se desarman al aparecer ===== */
 function startTiles(){
   if(reduce||!('IntersectionObserver' in window)) return;
-  const els=[...app.querySelectorAll('.ban,.wb,.feat .ph,.feat .pr')];
+  const els=[...app.querySelectorAll('.ban,.wb,.feat .ph,.feat .pr,.pc .pb,.flow figure:not([aria-hidden])')];
   const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const tl=e.target.querySelector(':scope>.tl'); if(tl) tl.classList.add('open'); io.unobserve(e.target); } }),{threshold:.3});
   els.forEach(el=>{
     const r=el.getBoundingClientRect(), cols=9, rows=Math.max(4,Math.round(cols*r.height/Math.max(1,r.width)));
     const tl=document.createElement('div'); tl.className='tl'; tl.setAttribute('aria-hidden','true');
     tl.style.gridTemplateColumns=`repeat(${cols},1fr)`; tl.style.gridTemplateRows=`repeat(${rows},1fr)`;
-    let h=''; for(let y=0;y<rows;y++) for(let x=0;x<cols;x++) h+=`<i style="--d:${(((x+y)/(cols+rows))*.45+Math.random()*.25).toFixed(3)}s"></i>`;
+    const bd=blockDelay(.7); let h=''; for(let y=0;y<rows;y++) for(let x=0;x<cols;x++) h+=`<i style="--d:${bd(x,y)}"></i>`;
     tl.innerHTML=h; el.appendChild(tl); io.observe(el);
   });
   cleanup.push(()=>io.disconnect());
@@ -1221,8 +1248,28 @@ document.addEventListener('click',e=>{
   if(!document.getElementById(id)){ location.hash='#/#'+id; return; }
   document.getElementById(id).scrollIntoView({behavior:reduce?'auto':'smooth'});
 });
-addEventListener('hashchange',route);
-route();
+/* transicion en bloques al cambiar de pagina */
+const pxEl=document.getElementById('px');
+let lastPath=null, navTok=0;
+function buildPx(){
+  const sz=innerWidth<700?46:72, cols=Math.ceil(innerWidth/sz), rows=Math.ceil(innerHeight/sz);
+  pxEl.style.gridTemplateColumns=`repeat(${cols},1fr)`; pxEl.style.gridTemplateRows=`repeat(${rows},1fr)`;
+  const bd=blockDelay(.42); let h=''; for(let y=0;y<rows;y++) for(let x=0;x<cols;x++) h+=`<i style="--d:${bd(x,y)}"></i>`;
+  pxEl.innerHTML=h;
+}
+function reshufflePx(){ const cells=[...pxEl.children], cols=getComputedStyle(pxEl).gridTemplateColumns.split(' ').length, bd=blockDelay(.48); cells.forEach((c,k)=>c.style.setProperty('--d',bd(k%cols,(k/cols)|0))); }
+async function nav(){
+  const path=location.hash.replace(/^#\/?/,'').split('#')[0];
+  if(reduce||lastPath===null||path===lastPath){ lastPath=path; route(); return; }
+  lastPath=path; const tok=++navTok;
+  closePanel(); if(lbOpen) closeLB();
+  buildPx(); void pxEl.offsetWidth; pxEl.classList.add('on'); app.classList.add('blurout');
+  await wait(720); if(tok!==navTok) return;
+  route(); app.classList.remove('blurout');
+  await wait(80); reshufflePx(); pxEl.classList.remove('on');
+}
+addEventListener('hashchange',nav);
+nav();
 </script>
 </body>
 </html>
