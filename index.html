@@ -342,7 +342,7 @@ tr.on td{background:rgba(14,14,14,.06);font-weight:500}
 .feat .ov b{display:block;font:600 clamp(34px,4.4vw,74px)/.9 var(--disp);text-transform:uppercase;letter-spacing:-.045em}
 .feat .ov span{display:inline-block;margin-top:14px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid #fff;padding:9px 16px;transition:background .25s,color .25s}
 .feat .ph:hover .ov span{background:#fff;color:var(--ink)}
-.feat .pr{overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:var(--panel);aspect-ratio:4/5;padding:8%}
+.feat .pr{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:var(--panel);aspect-ratio:4/5;padding:8%}
 .feat .pr .im{position:relative;flex:1 1 0;min-height:0;width:100%}
 .feat .pr img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .9s var(--ease)}
 .feat .pr:hover img{transform:translateY(-8px)}
@@ -512,6 +512,57 @@ body{letter-spacing:-.005em}
   .da-b{width:100%;justify-content:center}
 }
 
+/* ===== seccion animada ===== */
+.pv{position:relative;height:250vh;padding:0;background:var(--ink);color:var(--cream)}
+.pv-in{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;padding:86px var(--gut) clamp(64px,9vh,104px)}
+.pv-top{display:flex;justify-content:space-between;gap:16px;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(236,230,218,.6);position:relative;z-index:3}
+.pv-live{display:inline-flex;align-items:center;gap:10px;color:var(--cream)}
+.pv-live i{width:8px;height:8px;border-radius:50%;background:var(--cream);position:relative}
+.pv-h{align-self:center;display:flex;flex-direction:column;position:relative;z-index:2;mix-blend-mode:difference;color:var(--cream);font:700 clamp(68px,15.4vw,290px)/.8 var(--disp);letter-spacing:-.07em;text-transform:uppercase;pointer-events:none}
+.pv-l{display:block;will-change:transform,opacity}
+.l1{align-self:flex-start}.l2{align-self:flex-end}.l3{align-self:flex-start}
+.l3{color:transparent;-webkit-text-stroke:2px var(--cream);background:linear-gradient(var(--cream),var(--cream)) 0 0/var(--fill,0%) 100% no-repeat;-webkit-background-clip:text;background-clip:text}
+.pv-cards{position:absolute;inset:0;z-index:1;pointer-events:none}
+.pv-c{position:absolute;width:clamp(120px,13vw,220px);aspect-ratio:4/5;background:var(--cream);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 12px 12px;box-shadow:0 30px 60px rgba(0,0,0,.45);will-change:transform,opacity;opacity:0}
+.pv-c img{flex:1;min-height:0;width:100%;object-fit:contain}
+.pv-c b{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.c0{left:6%;top:19%}.c1{right:8%;top:14%}.c2{left:30%;bottom:15%}.c3{right:22%;bottom:20%}
+.pv-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;position:relative;z-index:3;opacity:0}
+.pv-bot p{max-width:46ch;color:rgba(236,230,218,.78);font-size:14px}
+.pv-cta{display:flex;align-items:center;gap:22px}
+.pv-price{font:600 clamp(26px,2.6vw,38px)/1 var(--disp);letter-spacing:-.04em;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.pv-price small{font:500 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:rgba(236,230,218,.6)}
+.pv-btn{background:var(--cream);color:var(--ink);border-color:var(--cream);padding:16px 26px}
+.pv-btn:hover{background:transparent;color:var(--cream)}
+.pv-tick{position:absolute;left:0;right:0;bottom:0;z-index:3;border-top:1px solid rgba(236,230,218,.18);overflow:hidden;white-space:nowrap;padding:11px 0}
+.pv-tt{display:inline-block;font:500 11px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:rgba(236,230,218,.75)}
+.pv-tt span{padding:0 1.6em}
+.pv-tt span:nth-child(3n){color:var(--cream)}
+@media (prefers-reduced-motion:no-preference){
+  .pv-tt{animation:mq 46s linear infinite}
+  .pv-live i::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--cream);animation:ping 1.8s var(--ease) infinite}
+  @keyframes ping{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+}
+@media (prefers-reduced-motion:reduce){.pv{height:auto}.pv-in{position:relative}.pv-c,.pv-bot{opacity:1}}
+@media (max-width:800px){
+  .pv{height:210vh}
+  .pv-h{font-size:clamp(58px,19vw,120px)}
+  .pv-c{width:31vw}
+  .c0{left:4%;top:16%}.c1{right:4%;top:24%}.c2{left:8%;bottom:30%}.c3{right:6%;bottom:36%}
+  .pv-bot{flex-direction:column;align-items:flex-start;gap:16px}
+  .pv-bot p{font-size:13px}
+  .pv-price{align-items:flex-start}
+  .pv-cta{width:100%;justify-content:space-between}
+}
+
+/* ===== cuadritos ===== */
+.tl{position:absolute;inset:0;z-index:5;display:grid;pointer-events:none}
+.tl i{background:var(--cream);transform:scale(1.04);transition:transform .6s cubic-bezier(.75,0,.25,1) var(--d,0s)}
+.tl.open i{transform:scale(0)}
+.lb-tiles{position:fixed;z-index:3;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(8,1fr);pointer-events:none}
+.lb-tiles i{background:var(--ink);transform:scale(0);transition:transform .42s cubic-bezier(.75,0,.25,1) var(--d,0s)}
+.lb-tiles.cover i{transform:scale(1.04)}
+
 </style>
 </head>
 <body>
@@ -551,6 +602,7 @@ body{letter-spacing:-.005em}
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
   <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <div class="lb-tiles" id="lbTiles" aria-hidden="true"></div>
   <button class="lb-p" type="button" aria-label="Foto anterior"></button>
   <button class="lb-n" type="button" aria-label="Foto siguiente"></button>
   <button class="ib lb-x" type="button" aria-label="Cerrar foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
@@ -639,16 +691,19 @@ function viewHome(){
     <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
   </section>
 
-  <section class="drop-alert" aria-label="Nuevo drop">
-    <div class="da-in rv">
-      <span class="da-tag"><i aria-hidden="true"></i>Nuevo drop</span>
-      <p class="da-t">Drop SANS <span>${CONFIG.preventaAbierta?'Preventa activa':'Preventa muy pronto'}</span></p>
-      <p class="da-s">${CONFIG.preventaAbierta?'Reserva el tuyo ahora y te lo despachamos con Blue Express cuando llegue la producción.':'Cuatro colores, tallas M, L y XL. Escríbenos y te avisamos primero.'}</p>
-      <a class="btn solid da-b" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a>
+  <section class="pv" aria-label="Preventa Drop SANS">
+    <div class="pv-in">
+      <div class="pv-top"><span class="pv-live"><i aria-hidden="true"></i>${CONFIG.preventaAbierta?'Preventa abierta':'Preventa muy pronto'}</span><span>Drop SANS · 001</span></div>
+      <h2 class="pv-h"><span class="pv-l l1">Esto</span><span class="pv-l l2">recién</span><span class="pv-l l3">empieza</span></h2>
+      <div class="pv-cards" aria-hidden="true">${ORDER.map((c,i)=>`<span class="pv-c c${i}"><img src="${M[c].mockups[0].src}" alt="" decoding="async"><b>${COLORS[c].name}</b></span>`).join('')}</div>
+      <div class="pv-bot">
+        <p>El primer drop de ATELIER NOIR. Polerón SANS de 550 g/m², 100% algodón y capucha de doble capa, en cuatro colores y tallas M, L y XL.</p>
+        <div class="pv-cta"><span class="pv-price">${money(CONFIG.precio)}<small>${CONFIG.preventaAbierta?'Preventa':'Prochainement'}</small></span><a class="btn pv-btn" href="#/#polerones" data-go="polerones">${CONFIG.preventaAbierta?'Reservar el mío':'Ver los colores'}</a></div>
+      </div>
+      <div class="pv-tick" aria-hidden="true"><div class="pv-tt">${Array(8).fill('<span>Précommande</span><span>Drop SANS</span><span>Esto recién empieza</span>').join('')}</div></div>
     </div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="mq-t">${(MQ+MQ)}</div></div>
 
   <section id="coleccion" class="shop" aria-label="Productos">
     <div class="shop-h rv"><span>Shop · Drop SANS</span><a href="#/#polerones" data-go="polerones">Ver todo</a></div>
@@ -710,7 +765,7 @@ function viewHome(){
       <div class="rv"><h3>100% algodón</h3><p>Felpa pesada de 550 g/m², perchada por dentro. Sin mezclas, sin French terry.</p></div>
       <div class="rv" style="transition-delay:70ms"><h3>Desteñido</h3><p>Color levemente desvaído, parejo en toda la prenda. Sin rotos ni lijado.</p></div>
       <div class="rv" style="transition-delay:140ms"><h3>Costuras abiertas</h3><p>Dos líneas horizontales y una vertical en cada manga, con el borde sin terminar.</p></div>
-      <div class="rv" style="transition-delay:210ms"><h3>Corte relajado</h3><p>Ni oversize ni regular. Capucha de capa simple, sin cordones. “ATELIER” bordado y “SANS” en relieve.</p></div>
+      <div class="rv" style="transition-delay:210ms"><h3>Corte relajado</h3><p>Ni oversize ni regular. Capucha de doble capa, sin cordones. “ATELIER” bordado y “SANS” en relieve.</p></div>
     </div>
   </section>
 
@@ -720,7 +775,7 @@ function viewHome(){
     <p class="rv">${CONFIG.preventaAbierta?'La preventa del Drop SANS está abierta.':'La preventa del Drop SANS abrirá aquí mismo. Escríbenos por Instagram y te avisamos primero.'}</p>
     <div class="cta-row rv">${CONFIG.preventaAbierta?'<a class="btn solid" href="#/#polerones" data-go="polerones">Reservar el mío</a>':`<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a>`}</div>
   </section>`;
-  startParallax(); startReveal(); startCollage();
+  startParallax(); startReveal(); startCollage(); startPV(); startTiles();
 }
 
 /* ===== Ayuda: tallas, envios, detalles, contacto ===== */
@@ -768,7 +823,7 @@ const HELP={
     <ul class="dl">
       <li><b>Tela</b><span>100% algodón, felpa de 550 g/m² con interior perchado. Sin poliéster ni mezclas.</span></li>
       <li><b>Corte</b><span>Relajado, hombro caído y cuerpo recto.</span></li>
-      <li><b>Capucha</b><span>De capa simple, estructurada, sin cordones.</span></li>
+      <li><b>Capucha</b><span>De doble capa, gruesa y estructurada, sin cordones.</span></li>
       <li><b>Efecto</b><span>Desteñido parejo en toda la prenda, sin rotos ni lijado.</span></li>
       <li><b>Costuras</b><span>Dos líneas horizontales con borde abierto al frente y en la espalda, y una costura vertical abierta en cada manga.</span></li>
       <li><b>Detalles</b><span>“ATELIER” bordado tono sobre tono en el pecho y “SANS” en relieve.</span></li>
@@ -846,7 +901,7 @@ function viewProduct(c){
           <ul>
             <li><span>Tela</span><span>100% algodón · 550 g/m²</span></li>
             <li><span>Efecto</span><span>Desteñido, sin rotos ni lijado</span></li>
-            <li><span>Capucha</span><span>Capa simple, sin cordones</span></li>
+            <li><span>Capucha</span><span>Doble capa, sin cordones</span></li>
             <li><span>Detalles</span><span>“ATELIER” bordado · “SANS” en relieve</span></li>
             <li><span>Puños y pretina</span><span>Rib 1x1 grueso</span></li>
           </ul></div></details>
@@ -931,13 +986,23 @@ function initStrip(total){
 /* ===== visor de fotos ===== */
 const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbC=document.getElementById('lbC');
 let lbOpen=false, lbList=[], lbI=0, lbBack=null, lbToken=0;
-function lbShow(i){
+const lbT=document.getElementById('lbTiles'), TC=12, TR=8;
+lbT.innerHTML='<i></i>'.repeat(TC*TR);
+const lbCells=[...lbT.children];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function placeTiles(){ const r=lbImg.getBoundingClientRect(); if(!r.width) return; Object.assign(lbT.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'}); }
+function shuffleTiles(){ lbCells.forEach((c,k)=>{ const x=k%TC, y=(k/TC)|0; c.style.setProperty('--d',(((x+y)/(TC+TR))*.22+Math.random()*.16).toFixed(3)+'s'); }); }
+async function lbShow(i,nav){
   lbI=(i+lbList.length)%lbList.length; const it=lbList[lbI], tok=++lbToken;
-  lbImg.classList.remove('on');
   lbC.textContent=String(lbI+1).padStart(2,'0')+' / '+String(lbList.length).padStart(2,'0');
-  const pre=new Image();
-  pre.onload=pre.onerror=()=>{ if(tok!==lbToken) return; setTimeout(()=>{ lbImg.src=it.src; lbImg.alt=it.alt; lb.classList.toggle('mock',it.mock); requestAnimationFrame(()=>requestAnimationFrame(()=>lbImg.classList.add('on'))); }, reduce?0:140); };
-  pre.src=it.src;
+  const fx=!reduce&&nav&&lbImg.classList.contains('on');
+  const pre=new Image(); pre.src=it.src;
+  if(fx){ placeTiles(); shuffleTiles(); lbT.classList.add('cover'); await wait(620); }
+  try{ await pre.decode(); }catch(e){}
+  if(tok!==lbToken) return;
+  lbImg.src=it.src; lbImg.alt=it.alt; lb.classList.toggle('mock',it.mock);
+  if(fx){ lbImg.classList.add('on'); await wait(40); placeTiles(); shuffleTiles(); lbT.classList.remove('cover'); }
+  else { lbImg.classList.remove('on'); requestAnimationFrame(()=>requestAnimationFrame(()=>lbImg.classList.add('on'))); }
 }
 function openLB(list,i){
   lbList=list; lbBack=document.activeElement; lb.hidden=false; lbOpen=true;
@@ -951,22 +1016,58 @@ function closeLB(){
   lbBack&&lbBack.focus&&lbBack.focus({preventScroll:true});
 }
 lb.querySelector('.lb-x').addEventListener('click',closeLB);
-lb.querySelector('.lb-p').addEventListener('click',()=>lbShow(lbI-1));
-lb.querySelector('.lb-n').addEventListener('click',()=>lbShow(lbI+1));
+lb.querySelector('.lb-p').addEventListener('click',()=>lbShow(lbI-1,true));
+lb.querySelector('.lb-n').addEventListener('click',()=>lbShow(lbI+1,true));
 addEventListener('keydown',e=>{ if(!lbOpen) return;
   if(e.key==='Escape'){e.stopImmediatePropagation();closeLB();}
-  if(e.key==='ArrowRight') lbShow(lbI+1);
-  if(e.key==='ArrowLeft') lbShow(lbI-1);
+  if(e.key==='ArrowRight') lbShow(lbI+1,true);
+  if(e.key==='ArrowLeft') lbShow(lbI-1,true);
 },true);
 let lbX=null;
 lb.addEventListener('pointerdown',e=>{lbX=e.clientX;});
-lb.addEventListener('pointerup',e=>{ if(lbX===null) return; const dx=e.clientX-lbX; lbX=null; if(e.pointerType!=='mouse'&&Math.abs(dx)>50) lbShow(lbI+(dx<0?1:-1)); });
+lb.addEventListener('pointerup',e=>{ if(lbX===null) return; const dx=e.clientX-lbX; lbX=null; if(e.pointerType!=='mouse'&&Math.abs(dx)>50) lbShow(lbI+(dx<0?1:-1),true); });
 
 /* aparecer suave de imagenes */
 function fadeImgs(){
   if(reduce) return;
   app.querySelectorAll('img').forEach(i=>{ if(i.closest('.hero')) return; if(i.complete&&i.naturalWidth) return;
     i.classList.add('fade'); const ok=()=>i.classList.add('ok'); i.addEventListener('load',ok,{once:true}); i.addEventListener('error',ok,{once:true}); });
+}
+
+/* ===== seccion "esto recien empieza" (animada con el scroll) ===== */
+function startPV(){
+  const sec=app.querySelector('.pv'); if(!sec) return;
+  const L=[...sec.querySelectorAll('.pv-l')], C=[...sec.querySelectorAll('.pv-c')], bot=sec.querySelector('.pv-bot'), top=sec.querySelector('.pv-top');
+  const seg=(p,a,b)=>Math.max(0,Math.min(1,(p-a)/(b-a)));
+  const eo=t=>1-Math.pow(1-t,3);
+  const ROT=[-9,7,6,-8], FROM=[-1,1,-1];
+  let t=false;
+  const run=()=>{ t=false;
+    const r=sec.getBoundingClientRect(), vh=innerHeight;
+    const p=reduce?1:Math.max(0,Math.min(1,(vh-r.top)/r.height));
+    L.forEach((el,i)=>{ const k=eo(seg(p,.16+i*.07,.5+i*.07)); el.style.transform=`translate3d(${((1-k)*FROM[i]*42).toFixed(2)}vw,0,0)`; el.style.opacity=(.15+.85*k).toFixed(3); });
+    L[2].style.setProperty('--fill',(seg(p,.5,.84)*100).toFixed(1)+'%');
+    C.forEach((el,i)=>{ const k=eo(seg(p,.3+i*.06,.68+i*.06)); el.style.transform=`translate3d(0,${((1-k)*70).toFixed(2)}vh,0) rotate(${(ROT[i]*(2-k)).toFixed(2)}deg) scale(${(.8+.2*k).toFixed(3)})`; el.style.opacity=k.toFixed(3); });
+    const kb=eo(seg(p,.6,.8)); bot.style.opacity=kb.toFixed(3); bot.style.transform=`translate3d(0,${((1-kb)*30).toFixed(1)}px,0)`;
+    top.style.opacity=eo(seg(p,.38,.5)).toFixed(3);
+  };
+  const on=()=>{ if(!t){ t=true; requestAnimationFrame(run); } };
+  addEventListener('scroll',on,{passive:true}); addEventListener('resize',on); run();
+  cleanup.push(()=>{ removeEventListener('scroll',on); removeEventListener('resize',on); });
+}
+/* ===== cuadritos que se desarman al aparecer ===== */
+function startTiles(){
+  if(reduce||!('IntersectionObserver' in window)) return;
+  const els=[...app.querySelectorAll('.ban,.wb,.feat .ph,.feat .pr')];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const tl=e.target.querySelector(':scope>.tl'); if(tl) tl.classList.add('open'); io.unobserve(e.target); } }),{threshold:.3});
+  els.forEach(el=>{
+    const r=el.getBoundingClientRect(), cols=9, rows=Math.max(4,Math.round(cols*r.height/Math.max(1,r.width)));
+    const tl=document.createElement('div'); tl.className='tl'; tl.setAttribute('aria-hidden','true');
+    tl.style.gridTemplateColumns=`repeat(${cols},1fr)`; tl.style.gridTemplateRows=`repeat(${rows},1fr)`;
+    let h=''; for(let y=0;y<rows;y++) for(let x=0;x<cols;x++) h+=`<i style="--d:${(((x+y)/(cols+rows))*.45+Math.random()*.25).toFixed(3)}s"></i>`;
+    tl.innerHTML=h; el.appendChild(tl); io.observe(el);
+  });
+  cleanup.push(()=>io.disconnect());
 }
 
 /* ===== efectos ===== */
@@ -1000,6 +1101,7 @@ function setHeader(){
 }
 addEventListener('scroll',setHeader,{passive:true});
 addEventListener('resize',setHeader);
+addEventListener('resize',()=>{ if(lbOpen) placeTiles(); });
 
 /* ===== paneles: menú, búsqueda, carrito ===== */
 const scrim=document.getElementById('scrim');
