@@ -795,7 +795,7 @@ const MQ = ['Drop SANS','100% algodón · 550 g/m²',(CONFIG.preventaAbierta?'Pr
 /* ===== modelos recortados ===== */
 /* fotos al aire libre: van en la portada, no en la galeria del producto */
 const NO_ESTUDIO = ['negro-8','cafe-4','gris-3','marino-4'];
-const ph = (c,f) => M[c].photos.find(o=>o.src.includes('/'+f+'.webp')) || M[c].photos[0];
+const ph = (c,f) => M[c].photos.find(o=>o.src.endsWith('/'+f+'.webp')) || M[c].photos[0];
 const CUT = {negro:[510,1525], marino:[556,1600], gris:[1008,1600], cafe:[772,1600]};
 const LOOK = [ // [clase, [color, foto], velocidad]
   ['a',['negro',3],.07], ['b',['cafe',1],-.05], ['c',['marino',1],.06],
@@ -871,7 +871,7 @@ function viewHome(){
 
   <section class="wide" aria-label="Drop SANS">
     <a class="wb rv" href="#/p/cafe">
-      <picture><source media="(max-width:700px)" srcset="assets/rugby-m.webp?v=2"><img src="assets/rugby.webp?v=2" width="3200" height="1803" alt="Dos amigos con el polerón SANS negro y café lanzándose una pelota de rugby al atardecer" loading="lazy"></picture>
+      <picture><source media="(max-width:700px)" srcset="assets/rugby-m.webp"><img src="assets/rugby.webp" width="3200" height="1803" alt="Dos amigos con el polerón SANS negro y café lanzándose una pelota de rugby al atardecer" loading="lazy"></picture>
       <span class="wb-t"><b>Drop<br>SANS</b><small>Prochainement · Atelier Noir<br><span class="go">Ver la colección</span></small></span>
     </a>
   </section>
@@ -989,7 +989,7 @@ function viewProduct(c){
   currentColor = c;
   document.title = `Drop SANS ${col.name} — ATELIER NOIR™`;
   const items = [
-    ...d.photos.filter(o=>!NO_ESTUDIO.some(f=>o.src.includes('/'+f+'.webp'))).map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
+    ...d.photos.filter(o=>!NO_ESTUDIO.some(f=>o.src.endsWith('/'+f+'.webp'))).map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
     ...d.mockups.map(o=>({o,cls:'mock',alt:`Mockup ${o.label} del polerón ${col.name}`,cap:'Mockup · '+o.label}))
   ];
   const total = items.length;

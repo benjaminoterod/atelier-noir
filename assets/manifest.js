@@ -98,7 +98,7 @@ window.MANIFEST={
  "gris": {
   "photos": [
    {
-    "src": "assets/fotos/gris-3.webp?v=2",
+    "src": "assets/fotos/gris-3.webp",
     "w": 1461,
     "h": 2000
    },
@@ -146,7 +146,7 @@ window.MANIFEST={
     "h": 2000
    },
    {
-    "src": "assets/fotos/cafe-3.webp?v=2",
+    "src": "assets/fotos/cafe-3.webp",
     "w": 1500,
     "h": 2000
    }
