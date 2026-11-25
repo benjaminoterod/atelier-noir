@@ -712,14 +712,6 @@ body{letter-spacing:-.005em}
 }
 @media (max-width:760px){.mf-b{grid-template-columns:1fr}}
 
-/* subtitulo de la portada */
-.ht-in{display:flex;flex-direction:column;align-items:center;gap:16px}
-.ht-in small{font:400 clamp(11px,.85vw,13px)/1 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:rgba(236,230,218,.72);padding-left:.32em;text-shadow:0 1px 14px rgba(0,0,0,.4)}
-@media (prefers-reduced-motion:no-preference){
-  .ht-in small{animation:subin 1.6s var(--ease) 1.5s both}
-  @keyframes subin{from{opacity:0;filter:blur(10px);transform:translateY(6px)}to{opacity:1;filter:none;transform:none}}
-}
-
 </style>
 </head>
 <body>
@@ -847,7 +839,7 @@ function viewHome(){
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
     <picture class="h-bg"><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
-    <div class="h-title"><div class="ht-in"><span>Atelier Noir</span><small>Esto recién empieza</small></div></div>
+    <div class="h-title"><span>Atelier Noir</span></div>
     <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
   </section>
 
