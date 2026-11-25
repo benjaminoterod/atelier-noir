@@ -712,6 +712,28 @@ body{letter-spacing:-.005em}
 }
 @media (max-width:760px){.mf-b{grid-template-columns:1fr}}
 
+/* ===== politicas en el carrito ===== */
+.acept{display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.45;color:#3a372f;cursor:pointer}
+.acept input{margin-top:2px;width:16px;height:16px;accent-color:var(--ink);flex:none}
+.cart-f .btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* ===== lista de espera ===== */
+.wl{padding:clamp(80px,10vw,150px) var(--gut);border-top:1px solid var(--line)}
+.wl-in{display:grid;grid-template-columns:1fr minmax(0,520px);gap:clamp(30px,7vw,120px);align-items:start;max-width:1280px;margin:0 auto}
+.wl h2{font:600 clamp(36px,5vw,76px)/.98 var(--disp);letter-spacing:-.05em;margin:14px 0 18px}
+.wl h2 span{color:var(--mute)}
+.wl-p{color:#3a372f;max-width:42ch}
+.wl-f{display:grid;gap:18px}
+.wl-f label{display:grid;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.wl-f input,.wl-f select{font:inherit;font-size:16px;letter-spacing:0;text-transform:none;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);padding:10px 0;border-radius:0;outline:0;-webkit-appearance:none;appearance:none}
+.wl-f select{background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 12px) 55%,calc(100% - 7px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:24px}
+.wl-f input:focus,.wl-f select:focus{border-bottom-width:2px}
+.wl-f input::placeholder{color:#9a9488}
+.wl-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.wl-f .btn{justify-content:center;margin-top:6px}
+.wl-msg{min-height:1.2em;font-size:13px;color:var(--ink)}
+@media (max-width:800px){.wl-in{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -775,16 +797,18 @@ body{letter-spacing:-.005em}
     </div>
   </div>
   <nav class="ft-links" aria-label="Pie de página">
-    <a href="#/">Inicio</a><a href="#/#polerones" data-go="polerones">Drop SANS</a><a href="#/info/tallas">Guía de tallas</a><a href="#/info/envios">Envíos</a><a href="#/info/detalles">Detalles y cuidado</a><a href="#/info/contacto">Contacto</a><a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">Instagram</a>
+    <a href="#/">Inicio</a><a href="#/#polerones" data-go="polerones">Drop SANS</a><a href="#/info/tallas">Guía de tallas</a><a href="#/info/envios">Envíos</a><a href="#/info/politicas">Cambios y devoluciones</a><a href="#/info/detalles">Detalles y cuidado</a><a href="#/info/contacto">Contacto</a><a href="https://www.instagram.com/ateliernoir.cl/" target="_blank" rel="noopener">Instagram</a>
   </nav>
   <div class="ft-word" aria-hidden="true"><span>ATELIER NOIR</span></div>
   <div class="ft-legal"><span>© 2026 ATELIER NOIR™</span><span>Hecho en Chile</span></div>
 </footer>
 
-<script src="assets/manifest.js"></script>
+<script src="assets/manifest.js?v=g1"></script>
 <script>
 /* ===== Ajustes fáciles ===== */
 const CONFIG = {
+  /* lista de espera: pega aqui el enlace del Formulario de Google (ver instrucciones) */
+  lista: { url:'', campos:{ nombre:'', contacto:'', color:'', talla:'' } },
   preventaAbierta: true,         // preventa activa (false para cerrarla)
   precio: 54990,                 // precio de ejemplo: edítalo
   ig: 'ateliernoir.cl'
@@ -811,7 +835,7 @@ const MQ = ['Drop SANS','100% algodón · 550 g/m²',(CONFIG.preventaAbierta?'Pr
 /* ===== modelos recortados ===== */
 /* fotos al aire libre: van en la portada, no en la galeria del producto */
 const NO_ESTUDIO = ['negro-8','cafe-4','gris-3','marino-4'];
-const ph = (c,f) => M[c].photos.find(o=>o.src.endsWith('/'+f+'.webp')) || M[c].photos[0];
+const ph = (c,f) => M[c].photos.find(o=>o.src.includes('/'+f+'.webp')) || M[c].photos[0];
 const CUT = {negro:[510,1525], marino:[556,1600], gris:[1008,1600], cafe:[772,1600]};
 const LOOK = [ // [clase, [color, foto], velocidad]
   ['a',['negro',3],.07], ['b',['cafe',1],-.05], ['c',['marino',1],.06],
@@ -820,7 +844,7 @@ const LOOK = [ // [clase, [color, foto], velocidad]
 function cutRow(list){
   return `<div class="cutrow">${list.map((c,i)=>`
     <a class="cut rv" style="transition-delay:${i*80}ms" href="#/p/${c}" aria-label="Ver Drop SANS ${COLORS[c].name}">
-      <span class="fig"><img src="assets/cut-${c}.webp" width="${CUT[c][0]}" height="${CUT[c][1]}" alt="Modelo con el polerón SANS ${COLORS[c].name}" loading="lazy"></span>
+      <span class="fig"><img src="assets/cut-${c}.webp?v=g1" width="${CUT[c][0]}" height="${CUT[c][1]}" alt="Modelo con el polerón SANS ${COLORS[c].name}" loading="lazy"></span>
       <span class="cap"><b>${COLORS[c].name}</b><small>${money(CONFIG.precio)}</small></span>
     </a>`).join('')}</div>`;
 }
@@ -838,14 +862,14 @@ function viewHome(){
   document.title = 'ATELIER NOIR™ — Drop SANS';
   app.innerHTML = `
   <section class="hero" aria-label="Portada">
-    <picture class="h-bg"><source media="(max-width:640px)" srcset="assets/portada-m.webp"><img src="assets/portada.webp" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
+    <picture class="h-bg"><source media="(max-width:640px)" srcset="assets/portada-m.webp?v=g1"><img src="assets/portada.webp?v=g1" width="3840" height="2166" alt="Modelo con la capucha del polerón SANS puesta, sobre un cielo al atardecer" fetchpriority="high"></picture>
     <div class="h-title"><span>Atelier Noir</span></div>
     <h1 class="sr">ATELIER NOIR — Drop SANS, polerón SANS</h1>
   </section>
 
   <section class="gx gx2" aria-label="Précommande Drop SANS">
     <div class="gx-in">
-      <div class="gx-media"><img src="assets/orbita.webp?v=3" width="3840" height="2161" alt="Modelo con el polerón SANS negro frente a un muro con grafitis, con los polerones gris, azul marino, negro y café girando a su alrededor" loading="lazy" decoding="async"></div>
+      <div class="gx-media"><img src="assets/orbita.webp?v=g1" width="3840" height="2161" alt="Modelo con el polerón SANS negro frente a un muro con grafitis, con los polerones gris, azul marino, negro y café girando a su alrededor" loading="lazy" decoding="async"></div>
       <div class="gx-txt">
         <p class="gx-eye">${words('Nouveau drop · Drop SANS',0)}</p>
         <h2 class="gx-tt">${words('La précommande',2)}<br>${words('est ouverte.',4)}</h2>
@@ -904,17 +928,38 @@ function viewHome(){
     </div>
   </section>
 
+  <section id="lista" class="wl" aria-label="Lista de espera">
+    <div class="wl-in">
+      <div class="wl-l">
+        <p class="eyebrow rv">Liste d’attente</p>
+        <h2 class="rv">Sé el primero <span>en saber.</span></h2>
+        <p class="wl-p rv">Déjanos tu contacto y te avisamos cuando lleguen las prendas, cuando quede poco stock y antes del próximo drop.</p>
+      </div>
+      <form class="wl-f rv" id="wlForm" novalidate>
+        <label>Nombre<input name="nombre" required maxlength="60" autocomplete="given-name"></label>
+        <label>Instagram o correo<input name="contacto" required maxlength="80" placeholder="@usuario o tu@correo.com" autocomplete="email"></label>
+        <div class="wl-row">
+          <label>Color<select name="color"><option value="">Cualquiera</option>${ORDER.map(c=>`<option>${COLORS[c].name}</option>`).join('')}</select></label>
+          <label>Talla<select name="talla"><option value="">Aún no sé</option><option>M</option><option>L</option><option>XL</option></select></label>
+        </div>
+        <button class="btn solid" type="submit">Avisarme</button>
+        <p class="wl-msg" id="wlMsg" role="status" aria-live="polite"></p>
+        <p class="note">Solo usamos tu contacto para avisarte de ATELIER NOIR.</p>
+      </form>
+    </div>
+  </section>
+
   <section id="preventa" class="soon" aria-label="Preventa">
     <div class="eyebrow rv">Preventa</div>
     <h2 class="rv">${CONFIG.preventaAbierta?'Preventa activa,<br><em>reserva tu SANS</em>':'Prochainement,<br><em>más cerca de lo que creen</em>'}</h2>
     <p class="rv">${CONFIG.preventaAbierta?'La preventa del Drop SANS está abierta.':'La preventa del Drop SANS abrirá aquí mismo. Escríbenos por Instagram y te avisamos primero.'}</p>
     <div class="cta-row rv">${CONFIG.preventaAbierta?'<a class="btn solid" href="#/#polerones" data-go="polerones">Reservar el mío</a>':`<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a>`}</div>
   </section>`;
-  startParallax(); startReveal(); startCollage(); startGX(); startWA(); startTiles();
+  startParallax(); startReveal(); startCollage(); startGX(); startWA(); startTiles(); initWaitlist();
 }
 
 /* ===== Ayuda: tallas, envios, detalles, contacto ===== */
-const INFO=[['tallas','Guía de tallas'],['envios','Envíos'],['detalles','Detalles y cuidado'],['contacto','Contacto']];
+const INFO=[['tallas','Guía de tallas'],['envios','Envíos'],['politicas','Cambios y devoluciones'],['detalles','Detalles y cuidado'],['contacto','Contacto']];
 function viewInfo(slug){
   if(!INFO.some(i=>i[0]===slug)) slug='tallas';
   document.title=`${INFO.find(i=>i[0]===slug)[1]} — ATELIER NOIR™`;
@@ -950,7 +995,7 @@ const HELP={
       <li><b>Preventa</b><span>Los pedidos de preventa se despachan cuando llega la producción del drop. Te confirmamos la fecha estimada al tomar tu pedido.</span></li>
       <li><b>Costo de envío</b><span>Depende de tu comuna. Te lo informamos antes de pagar, sin sorpresas.</span></li>
       <li><b>Seguimiento</b><span>Al despachar te enviamos el número de seguimiento de Blue Express para que veas dónde va tu pedido.</span></li>
-      <li><b>Cambios</b><span>¿La talla no te quedó? Escríbenos y lo coordinamos contigo.</span></li>
+      <li><b>Cambios</b><span>No aceptamos cambios ni devoluciones por arrepentimiento. Si tu prenda llega con una falla, aplica la garantía legal. <a class="ul" href="#/info/politicas">Ver políticas</a></span></li>
     </ul>
     <p><a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Preguntar por un envío</a></p>`,
   detalles:()=>`
@@ -973,6 +1018,16 @@ const HELP={
       <li><b>Planchado</b><span>No planches sobre el bordado ni sobre el relieve.</span></li>
       <li><b>El desteñido</b><span>Es parte del diseño: cada prenda puede variar levemente de tono.</span></li>
     </ul>`,
+  politicas:()=>`
+    <p class="lead2">El Drop SANS se vende en <b>preventa</b> y se produce en cantidades limitadas. Por eso <b>no aceptamos cambios ni devoluciones</b> por arrepentimiento, talla o color.</p>
+    <ul class="dl">
+      <li><b>Antes de comprar</b><span>Revisa la <a class="ul" href="#/info/tallas">guía de tallas</a> y, si tienes dudas, <a class="ul" href="#/info/contacto">escríbenos</a>. Te ayudamos a elegir.</span></li>
+      <li><b>Cambios y devoluciones</b><span>No aceptamos cambios ni devoluciones por arrepentimiento, por talla ni por color.</span></li>
+      <li><b>Derecho a retracto</b><span>De acuerdo con el artículo 3 bis de la Ley 19.496 sobre Protección de los Derechos de los Consumidores, te informamos que el derecho a retracto <b>no aplica</b> a las compras de este sitio.</span></li>
+      <li><b>Garantía legal</b><span>Si tu prenda llega con una <b>falla de fabricación</b>, escríbenos dentro de los <b>6 meses</b> desde que la recibes. Según la ley, puedes elegir el cambio, la reparación o la devolución del dinero.</span></li>
+      <li><b>Preventa</b><span>Despachamos cuando llega la producción del drop. Si hay un atraso, te avisamos por el mismo medio en que hiciste tu pedido.</span></li>
+    </ul>
+    <p class="note">Al hacer tu pedido confirmas que leíste y aceptas estas condiciones.</p>`,
   contacto:()=>`
     <p class="lead2">¿Dudas con tu talla, un envío o la preventa? Escríbenos por Instagram y te respondemos lo antes posible.</p>
     <div class="cbox">
@@ -992,7 +1047,7 @@ function viewProduct(c){
   currentColor = c;
   document.title = `Drop SANS ${col.name} — ATELIER NOIR™`;
   const items = [
-    ...d.photos.filter(o=>!NO_ESTUDIO.some(f=>o.src.endsWith('/'+f+'.webp'))).map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
+    ...d.photos.filter(o=>!NO_ESTUDIO.some(f=>o.src.includes('/'+f+'.webp'))).map((o,i)=>({o,cls:'',alt:`Drop SANS ${col.name}, foto ${i+1}`,cap:''})),
     ...d.mockups.map(o=>({o,cls:'mock',alt:`Mockup ${o.label} del polerón ${col.name}`,cap:'Mockup · '+o.label}))
   ];
   const total = items.length;
@@ -1027,7 +1082,7 @@ function viewProduct(c){
 
         <div class="buy">
           ${CONFIG.preventaAbierta
-            ? `<button class="btn solid" id="buy" type="button">Précommande · Añadir al carrito</button><span class="note">Pides por Instagram desde el carrito y el pago se coordina ahí.</span>`
+            ? `<button class="btn solid" id="buy" type="button">Précommande · Añadir al carrito</button><span class="note">Pides por Instagram desde el carrito y el pago se coordina ahí. Preventa sin cambios ni devoluciones por arrepentimiento. <a class="ul" href="#/info/politicas">Ver políticas</a></span>`
             : `<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame cuando abra</a><span class="note">Prochainement. Escríbenos por Instagram y te avisamos primero.</span>`}
         </div>
 
@@ -1177,6 +1232,32 @@ function fadeImgs(){
 /* ===== foto del grafiti: se abre y enfoca al bajar ===== */
 /* separa un texto en palabras para animarlas una por una */
 function words(t,start){ return t.split(' ').map((w,i)=>`<span class="w"><span style="--i:${start+i}">${w}</span></span>`).join(' '); }
+/* formulario de lista de espera */
+function initWaitlist(){
+  const f=document.getElementById('wlForm'); if(!f) return;
+  const msg=document.getElementById('wlMsg');
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const d=Object.fromEntries(new FormData(f).entries());
+    d.nombre=(d.nombre||'').trim(); d.contacto=(d.contacto||'').trim();
+    const okC=/^@?[A-Za-z0-9._]{2,30}$/.test(d.contacto)||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.contacto);
+    if(!d.nombre){ msg.textContent='Escribe tu nombre.'; f.nombre.focus(); return; }
+    if(!okC){ msg.textContent='Escribe tu @ de Instagram o un correo válido.'; f.contacto.focus(); return; }
+    const btn=f.querySelector('button'); btn.disabled=true; msg.textContent='Enviando…';
+    const L=CONFIG.lista;
+    if(L&&L.url){
+      const fd=new FormData(); Object.entries(L.campos).forEach(([k,id])=>{ if(id) fd.append(id,d[k]||''); });
+      try{ await fetch(L.url,{method:'POST',mode:'no-cors',body:fd}); }catch(_){}
+      msg.textContent=`¡Listo, ${d.nombre}! Te avisamos primero.`; f.reset();
+    }else{
+      const txt=`Hola ATELIER NOIR, quiero entrar a la lista de espera.\nNombre: ${d.nombre}\nContacto: ${d.contacto}\nColor: ${d.color||'cualquiera'}\nTalla: ${d.talla||'aún no sé'}`;
+      try{ await navigator.clipboard.writeText(txt); }catch(_){}
+      window.open(igLink(),'_blank','noopener');
+      msg.textContent='Te abrimos Instagram con tus datos copiados: pégalos en el mensaje y listo.';
+    }
+    btn.disabled=false;
+  });
+}
 function startWA(){
   const els=[...app.querySelectorAll('.wa')]; if(!els.length) return;
   if(reduce||!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('in')); return; }
@@ -1295,6 +1376,7 @@ document.getElementById('menuNav').innerHTML=`
   <div class="mg"><span class="mh">Ayuda</span>
     <a href="#/info/tallas">Guía de tallas</a>
     <a href="#/info/envios">Envíos</a>
+    <a href="#/info/politicas">Cambios y devoluciones</a>
     <a href="#/info/detalles">Detalles y cuidado</a>
     <a href="#/info/contacto">Contacto</a>
   </div>
@@ -1342,9 +1424,12 @@ function renderCart(){
   body.innerHTML=cart.map((i,k)=>`<div class="ci"><img src="${M[i.color].photos[0].src}" alt=""><div><b>Drop SANS</b><small>${COLORS[i.color].name} · Talla ${i.size}</small><div class="qty"><button data-q="-1" data-k="${k}" aria-label="Menos">−</button><span>${i.qty}</span><button data-q="1" data-k="${k}" aria-label="Más">+</button></div></div><div style="text-align:right">${money(CONFIG.precio*i.qty)}<br><button class="rm" data-rm="${k}">Quitar</button></div></div>`).join('');
   const total=cart.reduce((n,i)=>n+CONFIG.precio*i.qty,0);
   foot.hidden=false;
-  foot.innerHTML=`<div class="tot"><span>Total</span><b>${money(total)}</b></div><button class="btn solid" id="order">Pedir por Instagram</button><span class="note">Copiamos tu pedido; pégalo en el mensaje. El pago se coordina por ahí.</span>`;
+  foot.innerHTML=`<div class="tot"><span>Total</span><b>${money(total)}</b></div><label class="acept"><input type="checkbox" id="acepto"><span>Entiendo que es una preventa <b>sin cambios ni devoluciones</b> por arrepentimiento (<a class="ul" href="#/info/politicas">ver políticas</a>).</span></label><button class="btn solid" id="order" disabled>Pedir por Instagram</button><span class="note">Copiamos tu pedido; pégalo en el mensaje. El pago se coordina por ahí.</span>`;
+  const ac=document.getElementById('acepto'), ob=document.getElementById('order');
+  ac.addEventListener('change',()=>{ ob.disabled=!ac.checked; });
   document.getElementById('order').onclick=()=>{
-    const txt='Hola ATELIER NOIR, quiero pedir:\n'+cart.map(i=>`- Drop SANS ${COLORS[i.color].name}, talla ${i.size} x${i.qty}`).join('\n')+`\nTotal: ${money(total)}`;
+    if(!ac.checked) return;
+    const txt='Hola ATELIER NOIR, quiero pedir (preventa, acepto que es sin cambios ni devoluciones por arrepentimiento):\n'+cart.map(i=>`- Drop SANS ${COLORS[i.color].name}, talla ${i.size} x${i.qty}`).join('\n')+`\nTotal: ${money(total)}`;
     try{navigator.clipboard.writeText(txt)}catch(_){}
     window.open(igLink(),'_blank','noopener');
   };

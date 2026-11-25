@@ -2,42 +2,42 @@ window.MANIFEST={
  "negro": {
   "photos": [
    {
-    "src": "assets/fotos/negro-8.webp",
+    "src": "assets/fotos/negro-8.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-1.webp",
+    "src": "assets/fotos/negro-1.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-2.webp",
+    "src": "assets/fotos/negro-2.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-3.webp",
+    "src": "assets/fotos/negro-3.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-4.webp",
+    "src": "assets/fotos/negro-4.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-5.webp",
+    "src": "assets/fotos/negro-5.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-6.webp",
+    "src": "assets/fotos/negro-6.webp?v=g1",
     "w": 1333,
     "h": 2000
    },
    {
-    "src": "assets/fotos/negro-7.webp",
+    "src": "assets/fotos/negro-7.webp?v=g1",
     "w": 1333,
     "h": 2000
    }
@@ -60,22 +60,22 @@ window.MANIFEST={
  "marino": {
   "photos": [
    {
-    "src": "assets/fotos/marino-1.webp",
+    "src": "assets/fotos/marino-1.webp?v=g1",
     "w": 1461,
     "h": 2000
    },
    {
-    "src": "assets/fotos/marino-2.webp",
+    "src": "assets/fotos/marino-2.webp?v=g1",
     "w": 1461,
     "h": 2000
    },
    {
-    "src": "assets/fotos/marino-3.webp",
+    "src": "assets/fotos/marino-3.webp?v=g1",
     "w": 1461,
     "h": 2000
    },
    {
-    "src": "assets/fotos/marino-4.webp",
+    "src": "assets/fotos/marino-4.webp?v=g1",
     "w": 2000,
     "h": 1128
    }
@@ -98,17 +98,17 @@ window.MANIFEST={
  "gris": {
   "photos": [
    {
-    "src": "assets/fotos/gris-3.webp",
+    "src": "assets/fotos/gris-3.webp?v=g1",
     "w": 1461,
     "h": 2000
    },
    {
-    "src": "assets/fotos/gris-1.webp",
+    "src": "assets/fotos/gris-1.webp?v=g1",
     "w": 1461,
     "h": 2000
    },
    {
-    "src": "assets/fotos/gris-2.webp",
+    "src": "assets/fotos/gris-2.webp?v=g1",
     "w": 1461,
     "h": 2000
    }
@@ -131,22 +131,22 @@ window.MANIFEST={
  "cafe": {
   "photos": [
    {
-    "src": "assets/fotos/cafe-1.webp",
+    "src": "assets/fotos/cafe-1.webp?v=g1",
     "w": 1461,
     "h": 2000
    },
    {
-    "src": "assets/fotos/cafe-4.webp",
+    "src": "assets/fotos/cafe-4.webp?v=g1",
     "w": 2200,
     "h": 1240
    },
    {
-    "src": "assets/fotos/cafe-2.webp",
+    "src": "assets/fotos/cafe-2.webp?v=g1",
     "w": 1500,
     "h": 2000
    },
    {
-    "src": "assets/fotos/cafe-3.webp",
+    "src": "assets/fotos/cafe-3.webp?v=g1",
     "w": 1500,
     "h": 2000
    }
