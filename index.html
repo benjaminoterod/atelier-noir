@@ -696,6 +696,22 @@ body{letter-spacing:-.005em}
 .intro2 h2 span{color:var(--mute)}
 .i2-sub{color:#3a372f;font-size:clamp(14px,1.1vw,16px)}
 
+/* ===== manifiesto ===== */
+.mf{padding:clamp(110px,14vw,220px) var(--gut) clamp(90px,11vw,170px);max-width:1280px;margin:0 auto}
+.mf .eyebrow{margin-bottom:clamp(22px,3vw,36px)}
+.mf-h{font:600 clamp(40px,6.4vw,104px)/.98 var(--disp);letter-spacing:-.05em;max-width:15ch}
+.mf-2{color:var(--mute)}
+.mf-b{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(24px,6vw,120px);align-items:end;margin-top:clamp(36px,5vw,72px);padding-top:clamp(22px,3vw,34px);border-top:1px solid var(--line)}
+.mf-p{font-size:clamp(16px,1.35vw,20px);line-height:1.55;max-width:56ch;color:#2b2923}
+.mf-s{font:600 clamp(18px,1.6vw,24px)/1 var(--disp);letter-spacing:-.02em;font-style:normal;white-space:nowrap}
+.wa .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.wa .w>span{display:inline-block}
+@media (prefers-reduced-motion:no-preference){
+  .wa .w>span{transform:translateY(105%);opacity:0;filter:blur(8px);transition:transform .9s var(--ease),opacity .9s var(--ease),filter .9s var(--ease);transition-delay:calc(var(--i)*.045s)}
+  .wa.in .w>span{transform:none;opacity:1;filter:none}
+}
+@media (max-width:760px){.mf-b{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -869,25 +885,12 @@ function viewHome(){
     </div>
   </section>
 
-  <section class="wide" aria-label="Drop SANS">
-    <a class="wb rv" href="#/p/cafe">
-      <picture><source media="(max-width:700px)" srcset="assets/rugby-m.webp"><img src="assets/rugby.webp" width="3200" height="1803" alt="Dos amigos con el polerón SANS negro y café lanzándose una pelota de rugby al atardecer" loading="lazy"></picture>
-      <span class="wb-t"><b>Drop<br>SANS</b><small>Prochainement · Atelier Noir<br><span class="go">Ver la colección</span></small></span>
-    </a>
-  </section>
-
-  <section class="feat-wrap" aria-label="Destacados" style="padding-left:0;padding-right:0;padding-bottom:0">
-    <div class="feat">
-      <a class="ph rv" href="#/p/cafe">${img(ph('cafe','cafe-2'),'Modelo con el polerón SANS café tomando mate','loading="lazy"')}
-        <span class="ov"><b>Sans<br>bruit</b><span>Ver café</span></span></a>
-      <a class="pr rv" href="#/p/cafe" style="transition-delay:90ms"><span class="im"><img src="assets/cut-cafe.webp" width="${CUT.cafe[0]}" height="${CUT.cafe[1]}" alt="Modelo con el polerón SANS café" loading="lazy"></span>
-        <span class="t">Drop SANS · Café<small>${money(CONFIG.precio)}</small></span></a>
-    </div>
-    <div class="feat rev">
-      <a class="ph rv" href="#/p/gris">${img(ph('gris','gris-3'),'Modelo con el polerón SANS gris en una cafetería','loading="lazy"')}
-        <span class="ov"><b>Coutures<br>ouvertes</b><span>Ver gris</span></span></a>
-      <a class="pr rv" href="#/p/gris" style="transition-delay:90ms"><span class="im"><img src="assets/cut-gris.webp" width="${CUT.gris[0]}" height="${CUT.gris[1]}" alt="Dos modelos con el polerón SANS gris" loading="lazy"></span>
-        <span class="t">Drop SANS · Gris<small>${money(CONFIG.precio)}</small></span></a>
+  <section class="mf wa" aria-label="Manifiesto">
+    <p class="eyebrow">${words('Manifeste · Atelier Noir',0)}</p>
+    <h2 class="mf-h">${words('No hacemos ruido.',2)} <span class="mf-2">${words('Hacemos ropa que se queda.',5)}</span></h2>
+    <div class="mf-b">
+      <p class="mf-p">${words('ATELIER NOIR nace en Chile con una idea simple: menos piezas, mejor hechas. SANS es la primera. Algodón pesado de 550 g/m², costuras abiertas a propósito y un desteñido que hace única cada prenda. Para usarla años, no temporadas.',10)}</p>
+      <p class="mf-s">${words('Sans bruit.',48)}</p>
     </div>
   </section>
 
@@ -907,7 +910,7 @@ function viewHome(){
     <p class="rv">${CONFIG.preventaAbierta?'La preventa del Drop SANS está abierta.':'La preventa del Drop SANS abrirá aquí mismo. Escríbenos por Instagram y te avisamos primero.'}</p>
     <div class="cta-row rv">${CONFIG.preventaAbierta?'<a class="btn solid" href="#/#polerones" data-go="polerones">Reservar el mío</a>':`<a class="btn solid" href="${igLink()}" target="_blank" rel="noopener">Avísame · @${CONFIG.ig}</a>`}</div>
   </section>`;
-  startParallax(); startReveal(); startCollage(); startGX(); startTiles();
+  startParallax(); startReveal(); startCollage(); startGX(); startWA(); startTiles();
 }
 
 /* ===== Ayuda: tallas, envios, detalles, contacto ===== */
@@ -1174,6 +1177,12 @@ function fadeImgs(){
 /* ===== foto del grafiti: se abre y enfoca al bajar ===== */
 /* separa un texto en palabras para animarlas una por una */
 function words(t,start){ return t.split(' ').map((w,i)=>`<span class="w"><span style="--i:${start+i}">${w}</span></span>`).join(' '); }
+function startWA(){
+  const els=[...app.querySelectorAll('.wa')]; if(!els.length) return;
+  if(reduce||!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('in')); return; }
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{threshold:.25});
+  els.forEach(e=>io.observe(e)); cleanup.push(()=>io.disconnect());
+}
 function startGX(){
   const sec=app.querySelector('.gx2'); if(!sec) return;
   if(reduce||!('IntersectionObserver' in window)){ sec.classList.add('in'); return; }
