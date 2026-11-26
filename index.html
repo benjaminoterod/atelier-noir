@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ATELIER NOIR™ — Drop SANS</title>
-<meta name="description" content="Streetwear chileno. Drop SANS: polerón SANS, 100% algodón 550 g/m², corte relajado, en cuatro colores. Prochainement.">
+<meta name="description" content="Streetwear chileno. Drop SANS: polerón SANS, 100% algodón pima de 550 g/m², corte relajado, en cuatro colores. Prochainement.">
 <meta name="theme-color" content="#ECE6DA">
 <meta property="og:title" content="ATELIER NOIR™ — Drop SANS">
 <meta property="og:description" content="Polerón SANS. Pesado, relajado, sans bruit.">
@@ -788,7 +788,7 @@ body{letter-spacing:-.005em}
   <div class="ft-top">
     <div class="ft-col">
       <b class="ft-b">ATELIER NOIR™</b>
-      <p>Streetwear chileno. Drop SANS: polerón SANS, 100% algodón de 550 g/m², en cuatro colores.</p>
+      <p>Streetwear chileno. Drop SANS: polerón SANS, 100% algodón pima de 550 g/m², en cuatro colores.</p>
     </div>
     <div class="ft-col">
       <b class="ft-b">Précommande</b>
@@ -831,7 +831,7 @@ let currentColor = 'negro';
 const img = (o, alt, extra='') => `<img src="${o.src}" width="${o.w}" height="${o.h}" alt="${alt}" ${extra}>`;
 const igLink = () => `https://ig.me/m/${CONFIG.ig}`;
 
-const MQ = ['Drop SANS','100% algodón · 550 g/m²',(CONFIG.preventaAbierta?'Preventa activa':'Prochainement'),'Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
+const MQ = ['Drop SANS','100% algodón pima · 550 g/m²',(CONFIG.preventaAbierta?'Preventa activa':'Prochainement'),'Atelier Noir','Sans bruit'].map(t=>`<span>${t}</span>`).join('');
 /* ===== modelos recortados ===== */
 /* fotos al aire libre: van en la portada, no en la galeria del producto */
 const NO_ESTUDIO = ['negro-8','cafe-4','gris-3','marino-4'];
@@ -897,7 +897,7 @@ function viewHome(){
 
   <section id="polerones" class="pgs" aria-label="Polerones">
     <h2 class="pg-h rv">Polerones</h2>
-    <p class="pg-s rv">Drop SANS · 100% algodón · 550 g/m²</p>
+    <p class="pg-s rv">Drop SANS · 100% algodón pima · 550 g/m²</p>
     <div class="pgrid">
       ${ORDER.map((c,i)=>`
       <a class="pc rv" style="transition-delay:${i*70}ms" href="#/p/${c}" aria-label="Ver Drop SANS ${COLORS[c].name}">
@@ -913,7 +913,7 @@ function viewHome(){
     <p class="eyebrow">${words('Manifeste · Atelier Noir',0)}</p>
     <h2 class="mf-h">${words('No hacemos ruido.',2)} <span class="mf-2">${words('Hacemos ropa que se queda.',5)}</span></h2>
     <div class="mf-b">
-      <p class="mf-p">${words('ATELIER NOIR nace en Chile con una idea simple: menos piezas, mejor hechas. SANS es la primera. Algodón pesado de 550 g/m², costuras abiertas a propósito y un desteñido que hace única cada prenda. Para usarla años, no temporadas.',10)}</p>
+      <p class="mf-p">${words('ATELIER NOIR nace en Chile con una idea simple: menos piezas, mejor hechas. SANS es la primera. Algodón pima de 550 g/m², costuras abiertas a propósito y un desteñido que hace única cada prenda. Para usarla años, no temporadas.',10)}</p>
       <p class="mf-s">${words('Sans bruit.',48)}</p>
     </div>
   </section>
@@ -921,10 +921,10 @@ function viewHome(){
   <section id="detalles" class="det" aria-label="Detalles">
     <div class="sec-h rv"><h2>Hecho con calma</h2><span>Atelier noir</span></div>
     <div class="facts">
-      <div class="rv"><h3>100% algodón</h3><p>Felpa pesada de 550 g/m², perchada por dentro. Sin mezclas, sin French terry.</p></div>
+      <div class="rv"><h3>100% algodón pima</h3><p>Felpa pesada de 550 g/m², perchada por dentro. Sin mezclas, sin French terry.</p></div>
       <div class="rv" style="transition-delay:70ms"><h3>Desteñido</h3><p>Color levemente desvaído, parejo en toda la prenda. Sin rotos ni lijado.</p></div>
       <div class="rv" style="transition-delay:140ms"><h3>Costuras abiertas</h3><p>Dos líneas horizontales y una vertical en cada manga, con el borde sin terminar.</p></div>
-      <div class="rv" style="transition-delay:210ms"><h3>Corte relajado</h3><p>Ni oversize ni regular. Capucha de doble capa, sin cordones. “ATELIER” bordado y “SANS” en relieve.</p></div>
+      <div class="rv" style="transition-delay:210ms"><h3>Corte relajado</h3><p>Ni oversize ni regular. Capucha de doble capa, sin cordones. “ATELIER” bordado y “SANS” en impresión tacto cero.</p></div>
     </div>
   </section>
 
@@ -1001,12 +1001,12 @@ const HELP={
   detalles:()=>`
     <p class="lead2">Polerón de felpa pesada, pensado para durar y verse mejor con el uso.</p>
     <ul class="dl">
-      <li><b>Tela</b><span>100% algodón, felpa de 550 g/m² con interior perchado. Sin poliéster ni mezclas.</span></li>
+      <li><b>Tela</b><span>100% algodón pima, felpa de 550 g/m² con interior perchado. Sin poliéster ni mezclas.</span></li>
       <li><b>Corte</b><span>Relajado, hombro caído y cuerpo recto.</span></li>
       <li><b>Capucha</b><span>De doble capa, gruesa y estructurada, sin cordones.</span></li>
       <li><b>Efecto</b><span>Desteñido parejo en toda la prenda, sin rotos ni lijado.</span></li>
       <li><b>Costuras</b><span>Dos líneas horizontales con borde abierto al frente y en la espalda, y una costura vertical abierta en cada manga.</span></li>
-      <li><b>Detalles</b><span>“ATELIER” bordado tono sobre tono en el pecho y “SANS” en relieve.</span></li>
+      <li><b>Detalles</b><span>“ATELIER” bordado tono sobre tono en el pecho y “SANS” en impresión tacto cero.</span></li>
       <li><b>Puños y pretina</b><span>Rib 1x1 grueso, del mismo color.</span></li>
       <li><b>Colores</b><span>${ORDER.map(c=>COLORS[c].name).join(', ')}.</span></li>
       <li><b>Tallas</b><span>M, L y XL. <a class="ul" href="#/info/tallas">Ver medidas</a></span></li>
@@ -1015,7 +1015,7 @@ const HELP={
     <ul class="dl">
       <li><b>Lavado</b><span>A máquina en frío (30 °C), del revés y con colores parecidos.</span></li>
       <li><b>Secado</b><span>Al aire y extendido. No uses secadora.</span></li>
-      <li><b>Planchado</b><span>No planches sobre el bordado ni sobre el relieve.</span></li>
+      <li><b>Planchado</b><span>No planches sobre el bordado ni sobre la impresión.</span></li>
       <li><b>El desteñido</b><span>Es parte del diseño: cada prenda puede variar levemente de tono.</span></li>
     </ul>`,
   politicas:()=>`
@@ -1089,10 +1089,10 @@ function viewProduct(c){
         <details class="acc" open><summary>Detalles</summary><div class="in">
           <p>Polerón de felpa pesada, corte relajado y hombro caído. Dos líneas horizontales con borde sin terminar al frente y en la espalda, y una costura vertical abierta en cada manga.</p>
           <ul>
-            <li><span>Tela</span><span>100% algodón · 550 g/m²</span></li>
+            <li><span>Tela</span><span>100% algodón pima · 550 g/m²</span></li>
             <li><span>Efecto</span><span>Desteñido, sin rotos ni lijado</span></li>
             <li><span>Capucha</span><span>Doble capa, sin cordones</span></li>
-            <li><span>Detalles</span><span>“ATELIER” bordado · “SANS” en relieve</span></li>
+            <li><span>Detalles</span><span>“ATELIER” bordado · “SANS” en impresión tacto cero</span></li>
             <li><span>Puños y pretina</span><span>Rib 1x1 grueso</span></li>
           </ul></div></details>
         <details class="acc"><summary>Medidas</summary><div class="in">
